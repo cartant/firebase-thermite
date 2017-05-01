@@ -9,6 +9,7 @@ import * as firebase from "firebase/app";
 import "firebase/database";
 
 import { expect } from "chai";
+import { Mock } from "firebase-nightlight";
 import { app } from "../firebase-spec";
 import { asRef, isQuery, isRef, toQuery } from "./ref";
 
@@ -89,7 +90,109 @@ describe("database", () => {
 
         describe("toQuery", () => {
 
-            it.skip("should be tested", () => {
+            let mockRef: firebase.database.Reference;
+
+            beforeEach(() => {
+
+                const mock = new Mock();
+                const mockApp = mock.initializeApp({});
+                mockRef = mockApp.database().ref();
+            });
+
+            it("should build an orderByChild query", () => {
+
+                const query = toQuery(mockRef, {
+                    orderByChild: "name"
+                });
+                expect(query["query_"]).to.have.property("orderByChild", "name");
+            });
+
+            it("should build an orderByKey query", () => {
+
+                const query = toQuery(mockRef, {
+                    orderByKey: true
+                });
+                expect(query["query_"]).to.have.property("orderByKey", true);
+            });
+
+            it("should build an orderByValue query", () => {
+
+                const query = toQuery(mockRef, {
+                    orderByValue: true
+                });
+                expect(query["query_"]).to.have.property("orderByValue", true);
+            });
+
+            it("should build an equalTo query", () => {
+
+                const query = toQuery(mockRef, {
+                    equalTo: "alice",
+                    orderByChild: "name"
+                });
+                expect(query["query_"]).to.have.property("equalTo", "alice");
+                expect(query["query_"]).to.have.property("orderByChild", "name");
+            });
+
+            it("should build a startAt query", () => {
+
+                const query = toQuery(mockRef, {
+                    orderByChild: "name",
+                    startAt: "alice"
+                });
+                expect(query["query_"]).to.have.property("orderByChild", "name");
+                expect(query["query_"]).to.have.property("startAt", "alice");
+            });
+
+            it("should build an endAt query", () => {
+
+                const query = toQuery(mockRef, {
+                    endAt: "bob",
+                    orderByChild: "name"
+                });
+                expect(query["query_"]).to.have.property("endAt", "bob");
+                expect(query["query_"]).to.have.property("orderByChild", "name");
+            });
+
+            it("should build a startAt/endAt query", () => {
+
+                const query = toQuery(mockRef, {
+                    endAt: "bob",
+                    orderByChild: "name",
+                    startAt: "alice"
+                });
+                expect(query["query_"]).to.have.property("endAt", "bob");
+                expect(query["query_"]).to.have.property("orderByChild", "name");
+                expect(query["query_"]).to.have.property("startAt", "alice");
+            });
+
+            it("should build a limitToFirst query", () => {
+
+                const query = toQuery(mockRef, {
+                    limitToFirst: 10,
+                    orderByChild: "name"
+                });
+                expect(query["query_"]).to.have.property("limitToFirst", 10);
+                expect(query["query_"]).to.have.property("orderByChild", "name");
+            });
+
+            it("should build a limitToLast query", () => {
+
+                const query = toQuery(mockRef, {
+                    limitToLast: 10,
+                    orderByChild: "name"
+                });
+                expect(query["query_"]).to.have.property("limitToLast", 10);
+                expect(query["query_"]).to.have.property("orderByChild", "name");
+            });
+
+            it("should throw an error if multiple orderings are specified", () => {
+
+                expect(() => {
+                    toQuery(mockRef, {
+                        orderByChild: "name",
+                        orderByKey: true
+                    });
+                }).to.throw(Error);
             });
         });
     });

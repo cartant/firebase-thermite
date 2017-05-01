@@ -29,17 +29,30 @@ export function toQuery(
     options: QueryOptions = {}
 ): Query {
 
+    const multiOrderMessage = "Multiple orderings specified.";
     let query: Query = ref;
 
     if (options) {
 
         if (options.orderByChild) {
+            if (options.orderByKey || options.orderByPriority || options.orderByValue) {
+                throw new Error(multiOrderMessage);
+            }
             query = query.orderByChild(options.orderByChild);
         } else if (options.orderByKey) {
+            if (options.orderByChild || options.orderByPriority || options.orderByValue) {
+                throw new Error(multiOrderMessage);
+            }
             query = query.orderByKey();
         } else if (options.orderByPriority) {
+            if (options.orderByChild || options.orderByKey || options.orderByValue) {
+                throw new Error(multiOrderMessage);
+            }
             query = query.orderByPriority();
         } else if (options.orderByValue) {
+            if (options.orderByChild || options.orderByKey || options.orderByPriority) {
+                throw new Error(multiOrderMessage);
+            }
             query = query.orderByValue();
         }
 
