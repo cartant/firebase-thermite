@@ -222,5 +222,216 @@ describe("observable/database", function (): void {
             expect(lifted).to.have.property("query");
             expect(lifted).to.have.property("ref");
         });
+
+        describe("reducers", () => {
+
+            interface Child {
+                $key: string;
+                value: number;
+            }
+
+            function toChild(snapshot: any): any {
+
+                return snapshot.child;
+            }
+
+            function toSnapshot(child: Child): any {
+
+                return { child, key: child.$key };
+            }
+
+            describe("onAdded", () => {
+
+                it("should add an element with a null prevKey to an empty list", () => {
+
+                    const before: Child[] = [];
+                    const after = ListEventObservable.onAdded<Child>(
+                        before,
+                        toSnapshot({ $key: "1", value: 1 }),
+                        toChild,
+                        (element) => element.$key,
+                        null
+                    );
+
+                    expect(after).to.deep.equal([
+                        { $key: "1", value: 1 }
+                    ]);
+                    expect(after).to.not.equal(before);
+                });
+
+                it("should add an element with a non-null prevKey to an empty list", () => {
+
+                    const before: Child[] = [];
+                    const after = ListEventObservable.onAdded<Child>(
+                        before,
+                        toSnapshot({ $key: "1", value: 1 }),
+                        toChild,
+                        (element) => element.$key,
+                        "2"
+                    );
+
+                    expect(after).to.deep.equal([
+                        { $key: "1", value: 1 }
+                    ]);
+                    expect(after).to.not.equal(before);
+                });
+
+                it("should add an element with a null prevKey to a non-empty list", () => {
+
+                    const before: Child[] = [
+                        { $key: "2", value: 2 }
+                    ];
+                    const after = ListEventObservable.onAdded<Child>(
+                        before,
+                        toSnapshot({ $key: "1", value: 1 }),
+                        toChild,
+                        (element) => element.$key,
+                        null
+                    );
+
+                    expect(after).to.deep.equal([
+                        { $key: "1", value: 1 },
+                        { $key: "2", value: 2 }
+                    ]);
+                    expect(after).to.not.equal(before);
+                });
+
+                it("should add an element with a non-null prevKey to a non-empty list", () => {
+
+                    const before: Child[] = [
+                        { $key: "2", value: 2 }
+                    ];
+                    const after = ListEventObservable.onAdded<Child>(
+                        before,
+                        toSnapshot({ $key: "1", value: 1 }),
+                        toChild,
+                        (element) => element.$key,
+                        "2"
+                    );
+
+                    expect(after).to.deep.equal([
+                        { $key: "2", value: 2 },
+                        { $key: "1", value: 1 }
+                    ]);
+                    expect(after).to.not.equal(before);
+                });
+            });
+
+            describe("onChanged", () => {
+
+                it("should move an element with a null prevKey", () => {
+
+                    const before: Child[] = [
+                        { $key: "1", value: 1 },
+                        { $key: "2", value: 2 },
+                        { $key: "3", value: 3 }
+                    ];
+                    const after = ListEventObservable.onChanged<Child>(
+                        before,
+                        toSnapshot({ $key: "2", value: 2.1 }),
+                        toChild,
+                        (element) => element.$key,
+                        null
+                    );
+
+                    expect(after).to.deep.equal([
+                        { $key: "2", value: 2.1 },
+                        { $key: "1", value: 1 },
+                        { $key: "3", value: 3 }
+                    ]);
+                    expect(after).to.not.equal(before);
+                });
+
+                it("should move an element with a non-null prevKey", () => {
+
+                    const before: Child[] = [
+                        { $key: "1", value: 1 },
+                        { $key: "2", value: 2 },
+                        { $key: "3", value: 3 }
+                    ];
+                    const after = ListEventObservable.onChanged<Child>(
+                        before,
+                        toSnapshot({ $key: "3", value: 3.1 }),
+                        toChild,
+                        (element) => element.$key,
+                        "1"
+                    );
+
+                    expect(after).to.deep.equal([
+                        { $key: "1", value: 1 },
+                        { $key: "3", value: 3.1 },
+                        { $key: "2", value: 2 }
+                    ]);
+                    expect(after).to.not.equal(before);
+                });
+
+                it("should update elements with a null prevKey", () => {
+
+                    const before: Child[] = [
+                        { $key: "1", value: 1 },
+                        { $key: "2", value: 2 },
+                        { $key: "3", value: 3 }
+                    ];
+                    const after = ListEventObservable.onChanged<Child>(
+                        before,
+                        toSnapshot({ $key: "1", value: 1.1 }),
+                        toChild,
+                        (element) => element.$key,
+                        null
+                    );
+
+                    expect(after).to.deep.equal([
+                        { $key: "1", value: 1.1 },
+                        { $key: "2", value: 2 },
+                        { $key: "3", value: 3 }
+                    ]);
+                    expect(after).to.not.equal(before);
+                });
+
+                it("should update elements with a non-null prevKey", () => {
+
+                    const before: Child[] = [
+                        { $key: "1", value: 1 },
+                        { $key: "2", value: 2 },
+                        { $key: "3", value: 3 }
+                    ];
+                    const after = ListEventObservable.onChanged<Child>(
+                        before,
+                        toSnapshot({ $key: "2", value: 2.1 }),
+                        toChild,
+                        (element) => element.$key,
+                        "1"
+                    );
+
+                    expect(after).to.deep.equal([
+                        { $key: "1", value: 1 },
+                        { $key: "2", value: 2.1 },
+                        { $key: "3", value: 3 }
+                    ]);
+                    expect(after).to.not.equal(before);
+                });
+            });
+
+            describe("onRemoved", () => {
+
+                it("should remove the element with the snapshot's key", () => {
+
+                    const before: Child[] = [
+                        { $key: "1", value: 1 },
+                        { $key: "2", value: 2 }
+                    ];
+                    const after = ListEventObservable.onRemoved<Child>(
+                        before,
+                        toSnapshot({ $key: "2", value: 2 }),
+                        (element) => element.$key
+                    );
+
+                    expect(after).to.deep.equal([
+                        { $key: "1", value: 1 }
+                    ]);
+                    expect(after).to.not.equal(before);
+                });
+            });
+        });
     });
 });

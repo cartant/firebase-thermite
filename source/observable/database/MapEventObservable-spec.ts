@@ -222,5 +222,96 @@ describe("observable/database", function (): void {
             expect(lifted).to.have.property("query");
             expect(lifted).to.have.property("ref");
         });
+
+        describe("reducers", () => {
+
+            function toSnapshot(key: string, value: number): any {
+
+                return { key, value };
+            }
+
+            function toValue(snapshot: any): any {
+
+                return snapshot.value;
+            }
+
+            describe("onAdded", () => {
+
+                it("should add an element to an empty map", () => {
+
+                    const before: { [key: string]: number } = {};
+                    const after = MapEventObservable.onAdded<number>(
+                        before,
+                        toSnapshot("1", 1),
+                        toValue
+                    );
+
+                    expect(after).to.deep.equal({
+                        "1": 1
+                    });
+                    expect(after).to.not.equal(before);
+                });
+
+                it("should add an element to a non-empty map", () => {
+
+                    const before: { [key: string]: number } = {
+                        "2": 2
+                    };
+                    const after = MapEventObservable.onAdded<number>(
+                        before,
+                        toSnapshot("1", 1),
+                        toValue
+                    );
+
+                    expect(after).to.deep.equal({
+                        "1": 1,
+                        "2": 2
+                    });
+                    expect(after).to.not.equal(before);
+                });
+            });
+
+            describe("onChanged", () => {
+
+                it("should update an element", () => {
+
+                    const before: { [key: string]: number } = {
+                        "1": 1,
+                        "2": 2
+                    };
+                    const after = MapEventObservable.onChanged<number>(
+                        before,
+                        toSnapshot("1", 1.1),
+                        toValue
+                    );
+
+                    expect(after).to.deep.equal({
+                        "1": 1.1,
+                        "2": 2
+                    });
+                    expect(after).to.not.equal(before);
+                });
+            });
+
+            describe("onRemoved", () => {
+
+                it("should remove the element with the snapshot's key", () => {
+
+                    const before: { [key: string]: number } = {
+                        "1": 1,
+                        "2": 2
+                    };
+                    const after = MapEventObservable.onRemoved<number>(
+                        before,
+                        toSnapshot("2", 2)
+                    );
+
+                    expect(after).to.deep.equal({
+                        "1": 1
+                    });
+                    expect(after).to.not.equal(before);
+                });
+            });
+        });
     });
 });

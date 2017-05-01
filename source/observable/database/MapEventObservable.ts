@@ -165,21 +165,21 @@ export class MapEventObservable<T> extends Observable<T> {
     }
 
     static onAdded<T>(
-        properties: { [key: string]: T },
+        map: { [key: string]: T },
         snapshot: Snapshot,
         elementSelector: (snapshot: Snapshot) => T
     ): { [key: string]: T } {
 
-        return { ...properties, [snapshot.key]: elementSelector(snapshot) };
+        return { ...map, [snapshot.key]: elementSelector(snapshot) };
     }
 
     static onChanged<T>(
-        properties: { [key: string]: T },
+        map: { [key: string]: T },
         snapshot: Snapshot,
         elementSelector: (snapshot: Snapshot) => T
     ): { [key: string]: T } {
 
-        return { ...properties, [snapshot.key]: elementSelector(snapshot) };
+        return { ...map, [snapshot.key]: elementSelector(snapshot) };
     }
 
     static onLoaded<T>(
@@ -187,19 +187,19 @@ export class MapEventObservable<T> extends Observable<T> {
         elementSelector: (snapshot: Snapshot) => T
     ): { [key: string]: T } {
 
-        return Object.keys(snapshots).reduce((properties, key) => {
+        return Object.keys(snapshots).reduce((map, key) => {
             const snapshot = snapshots[key];
-            properties[key] = elementSelector(snapshot);
-            return properties;
+            map[key] = elementSelector(snapshot);
+            return map;
         }, {} as { [key: string]: T });
     }
 
     static onRemoved<T>(
-        properties: { [key: string]: T },
+        map: { [key: string]: T },
         snapshot: Snapshot
     ): { [key: string]: T } {
 
-        const { [snapshot.key]: removed, ...kept } = properties;
+        const { [snapshot.key]: removed, ...kept } = map;
         return kept;
     }
 
