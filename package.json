@@ -1,0 +1,73 @@
+{
+  "author": "Nicholas Jamieson <nicholas@cartant.com>",
+  "bugs": {
+    "url": "https://github.com/cartant/firebase-thermite/issues"
+  },
+  "dependencies": {},
+  "description": "Firebase RxJS observables",
+  "devDependencies": {
+    "@types/chai": "^3.5.1",
+    "@types/mocha": "^2.2.41",
+    "@types/node": "^7.0.13",
+    "chai": "^3.5.0",
+    "core-js": "^2.4.1",
+    "cpy-cli": "^1.0.1",
+    "env-cmd": "^5.1.0",
+    "eslint": "^3.19.0",
+    "firebase": "^3.0.0",
+    "firebase-nightlight": "^1.0.0",
+    "geofire": "^4.1.2",
+    "karma": "^1.6.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-mocha": "^1.3.0",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "karma-spec-reporter": "^0.0.31",
+    "mkdirp": "^0.5.1",
+    "mocha": "^3.2.0",
+    "rimraf": "^2.6.1",
+    "rollup": "^0.41.6",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rxjs": "^5.3.0",
+    "tslib": "^1.6.1",
+    "tslint": "^5.1.0",
+    "typescript": "^2.2.2",
+    "uglifyjs": "^2.4.10"
+  },
+  "homepage": "https://github.com/cartant/firebase-thermite",
+  "jsnext:main": "./dist/index.js",
+  "keywords": [
+    "firebase",
+    "observble",
+    "reactive",
+    "rxjs"
+  ],
+  "license": "MIT",
+  "main": "./bundles/firebase-thermite.umd.js",
+  "module": "./dist/index.js",
+  "name": "firebase-thermite",
+  "optionalDependencies": {},
+  "peerDependencies": {
+    "firebase": "^3.0.0",
+    "rxjs": "^5.3.0"
+  },
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cartant/firebase-thermite.git"
+  },
+  "scripts": {
+    "dist": "npm run dist:build && npm run dist:uglify && npm run dist:copy",
+    "dist:build": "npm run dist:clean && tsc -p tsconfig-dist.json && rollup -c rollup-config.js",
+    "dist:clean": "rimraf dist && rimraf bundles/firebase-thermite.* && mkdirp bundles",
+    "dist:copy": "node scripts/pack.js && cpy bundles/firebase-thermite.* dist/bundles/ && cpy CHANGELOG.md LICENSE README.md dist/",
+    "dist:uglify": "uglifyjs -c --comments /license/ -m --screw-ie8 -o bundles/firebase-thermite.min.umd.js bundles/firebase-thermite.umd.js",
+    "lint": "tslint --project tsconfig.json --type-check source/**/*.ts",
+    "prepublish": "npm run test && npm run dist",
+    "test": "npm run lint && npm run test:build && karma start",
+    "test:build": "npm run test:clean && tsc -p tsconfig.json && env-cmd .env rollup -c rollup-config-test.js",
+    "test:clean": "rimraf build && rimraf bundles/firebase-thermite-test.* && mkdirp bundles && touch .env"
+  },
+  "typings": "./dist/index.d.ts",
+  "unpkg": "./bundles/firebase-thermite.min.umd.js",
+  "version": "0.0.0"
+}
