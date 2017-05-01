@@ -22,7 +22,7 @@ SOFTWARE.
 
 --
 
-List event reducers and list loading implementation based on::
+List event reducers and list loading implementation based on:
 https://github.com/angular/angularfire2
 
 The MIT License
