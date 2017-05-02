@@ -19,26 +19,22 @@ import {
     firebaseUserPassword
 } from "./constants-spec";
 
-const useMock = true;
+const mock = true;
 // tslint:disable-next-line
-console.log(`Using ${useMock ? "a " : "an un"}mocked Firebase app...`);
+console.log(`Using ${mock ? "a " : "an un"}mocked Firebase app...`);
 
-let app: firebase.app.App;
-if (useMock) {
-    const mock = new Mock({
-        identities: [{
-            email: firebaseUserEmail,
-            password: firebaseUserPassword
-        }]
-    });
-    app = mock.initializeApp({});
-} else {
-    app = firebase.initializeApp({
-        apiKey: firebaseApiKey,
-        authDomain: firebaseAuthDomain,
-        databaseURL: firebaseDatabaseUrl,
-        storageBucket: firebaseStorageBucket
-    });
-}
+const api: any = mock ? new Mock({
+    identities: [{
+        email: firebaseUserEmail,
+        password: firebaseUserPassword
+    }]
+}) : firebase;
+
+const app = api.initializeApp({
+    apiKey: firebaseApiKey,
+    authDomain: firebaseAuthDomain,
+    databaseURL: firebaseDatabaseUrl,
+    storageBucket: firebaseStorageBucket
+});
 
 export { app };
