@@ -9,6 +9,7 @@ export const external = [
     "rxjs/add/observable/fromPromise",
     "rxjs/add/observable/merge",
     "rxjs/add/observable/zip",
+    "rxjs/add/operator/catch",
     "rxjs/add/operator/concatMap",
     "rxjs/add/operator/do",
     "rxjs/add/operator/filter",
