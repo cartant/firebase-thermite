@@ -18,7 +18,9 @@ import { Reference } from "../../database/types";
 import { app } from "../../firebase-spec";
 import { InfiniteListObservable } from "./InfiniteListObservable";
 
+import "rxjs/add/operator/catch";
 import "rxjs/add/operator/map";
+import "rxjs/add/operator/skip";
 import "rxjs/add/operator/take";
 import "rxjs/add/operator/toArray";
 import "rxjs/add/operator/toPromise";
