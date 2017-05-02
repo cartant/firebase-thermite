@@ -161,7 +161,7 @@ glob("source/**/*.ts", (error, files) => {
 
 function toLineNumber(input, index) {
 
-    return input.substring(0, index).match(/\n/g).length;
+    return input.substring(0, index).match(/\n/g).length + 1;
 }
 
 function toSeen(file, match, seen) {
