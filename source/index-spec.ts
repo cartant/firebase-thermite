@@ -9,6 +9,7 @@ import "./app/app-spec";
 import "./auth/auth-spec";
 import "./database/database-spec";
 import "./database/ref-spec";
+import "./database/selectors-spec";
 import "./database/value-with-key-spec";
 import "./messaging/messaging-spec";
 import "./observable/auth/AuthStateObservable-spec";

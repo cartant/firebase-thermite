@@ -20,22 +20,6 @@ export interface CompositeWithKey extends WithKey {
 
 export type ValueWithKey = PrimitiveWithKey | CompositeWithKey;
 
-export function selectValue(snapshot: Snapshot): Value {
-
-    return snapshot.val();
-}
-
-export function selectValueWithKey(snapshot: Snapshot): ValueWithKey {
-
-    const val = snapshot.val();
-    let valueWithKey = ((val === undefined) || (val === null)) ? { $value: null } : val;
-    if (isPrimitive(valueWithKey)) {
-        valueWithKey = { $value: valueWithKey };
-    }
-    valueWithKey.$key = snapshot.ref.key;
-    return valueWithKey;
-}
-
 export function fromValueWithKey(valueWithKey: ValueWithKey): Value {
 
     if (isPrimitiveWithKey(valueWithKey)) {

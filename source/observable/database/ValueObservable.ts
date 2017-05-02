@@ -11,11 +11,10 @@ import { Subscriber } from "rxjs/Subscriber";
 import { Subscription, TeardownLogic } from "rxjs/Subscription";
 import { asRef } from "../../database/ref";
 import { Query, Reference, Snapshot } from "../../database/types";
-import { WithKey } from "../../database/value-with-key";
 
 export class ValueObservable<T> extends Observable<T> {
 
-    static create<T extends WithKey>(
+    static create<T>(
         query: Query,
         valueSelector: (snapshot: Snapshot) => T
     ): ValueObservable<T> {

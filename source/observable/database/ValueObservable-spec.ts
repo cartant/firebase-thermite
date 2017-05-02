@@ -3,6 +3,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://github.com/cartant/firebase-thermite
  */
+/*tslint:disable:no-unused-expression*/
 
 import * as firebase from "firebase/app";
 import "firebase/database";
@@ -11,9 +12,9 @@ import { expect } from "chai";
 import { timeout } from "../../constants-spec";
 import { expectNoListeners } from "../../database/expect-spec";
 import { app } from "../../firebase-spec";
+import { selectValue } from "../../database/selectors";
 import { Reference } from "../../database/types";
 import { ValueObservable } from "./ValueObservable";
-import { selectValueWithKey, ValueWithKey } from "../../database/value-with-key";
 
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/skip";
@@ -52,21 +53,20 @@ describe("observable/database", function (): void {
 
             it("should emit the initial value", () => {
 
-                return ValueObservable.create(primitiveRef, selectValueWithKey)
+                return ValueObservable.create(primitiveRef, selectValue)
                     .take(1)
                     .toPromise()
                     .then((value) => {
 
-                        expect(value).to.be.an("object");
-                        expect(value).to.have.property("$key", "primitive");
-                        expect(value).to.have.property("$value", "alice");
+                        expect(value).to.be.a("string");
+                        expect(value).to.equal("alice");
                         expectNoListeners(primitiveRef);
                     });
             });
 
             it("should emit when properties are changed", () => {
 
-                return ValueObservable.create(primitiveRef, selectValueWithKey)
+                return ValueObservable.create(primitiveRef, selectValue)
                     .map((value, index) => {
 
                         if (index === 0) {
@@ -81,16 +81,15 @@ describe("observable/database", function (): void {
                     .toPromise()
                     .then((value) => {
 
-                        expect(value).to.be.an("object");
-                        expect(value).to.have.property("$key", "primitive");
-                        expect(value).to.have.property("$value", "alison");
+                        expect(value).to.be.a("string");
+                        expect(value).to.equal("alison");
                         expectNoListeners(primitiveRef);
                     });
             });
 
             it("should emit the value is removed", () => {
 
-                return ValueObservable.create(primitiveRef, selectValueWithKey)
+                return ValueObservable.create(primitiveRef, selectValue)
                     .map((value, index) => {
 
                         if (index === 0) {
@@ -105,9 +104,7 @@ describe("observable/database", function (): void {
                     .toPromise()
                     .then((value) => {
 
-                        expect(value).to.be.an("object");
-                        expect(value).to.have.property("$key", "primitive");
-                        expect(value).to.have.property("$value", null);
+                        expect(value).to.be.null;
                         expectNoListeners(primitiveRef);
                     });
             });
@@ -117,14 +114,13 @@ describe("observable/database", function (): void {
 
             it("should emit the initial value", () => {
 
-                return ValueObservable.create(compositeRef, selectValueWithKey)
+                return ValueObservable.create(compositeRef, selectValue)
                     .take(1)
                     .toPromise()
                     .then((value) => {
 
                         expect(value).to.be.an("object");
                         expect(value).to.deep.equal({
-                            $key: "composite",
                             a: 1,
                             b: 2,
                             c: 3
@@ -135,7 +131,7 @@ describe("observable/database", function (): void {
 
             it("should emit when children are added", () => {
 
-                return ValueObservable.create(compositeRef, selectValueWithKey)
+                return ValueObservable.create(compositeRef, selectValue)
                     .map((value, index) => {
 
                         if (index === 0) {
@@ -152,7 +148,6 @@ describe("observable/database", function (): void {
 
                         expect(value).to.be.an("object");
                         expect(value).to.deep.equal({
-                            $key: "composite",
                             a: 1,
                             b: 2,
                             c: 3,
@@ -164,7 +159,7 @@ describe("observable/database", function (): void {
 
             it("should emit when children are changed", () => {
 
-                return ValueObservable.create(compositeRef, selectValueWithKey)
+                return ValueObservable.create(compositeRef, selectValue)
                     .map((value, index) => {
 
                         if (index === 0) {
@@ -181,7 +176,6 @@ describe("observable/database", function (): void {
 
                         expect(value).to.be.an("object");
                         expect(value).to.deep.equal({
-                            $key: "composite",
                             a: 1,
                             b: 0,
                             c: 3
@@ -192,7 +186,7 @@ describe("observable/database", function (): void {
 
             it("should emit when children are removed", () => {
 
-                return ValueObservable.create(compositeRef, selectValueWithKey)
+                return ValueObservable.create(compositeRef, selectValue)
                     .map((value, index) => {
 
                         if (index === 0) {
@@ -209,10 +203,31 @@ describe("observable/database", function (): void {
 
                         expect(value).to.be.an("object");
                         expect(value).to.deep.equal({
-                            $key: "composite",
                             a: 1,
                             c: 3
                         });
+                        expectNoListeners(compositeRef);
+                    });
+            });
+
+            it("should emit the value is removed", () => {
+
+                return ValueObservable.create(compositeRef, selectValue)
+                    .map((value, index) => {
+
+                        if (index === 0) {
+                            Promise
+                                .resolve()
+                                .then(() => compositeRef.remove());
+                        }
+                        return value;
+                    })
+                    .skip(1)
+                    .take(1)
+                    .toPromise()
+                    .then((value) => {
+
+                        expect(value).to.be.null;
                         expectNoListeners(compositeRef);
                     });
             });
@@ -220,7 +235,7 @@ describe("observable/database", function (): void {
 
         it("should support lift", () => {
 
-            const lifted = ValueObservable.create(primitiveRef, selectValueWithKey).map(Boolean);
+            const lifted = ValueObservable.create(primitiveRef, selectValue).map(Boolean);
             expect(lifted).to.be.an.instanceof(ValueObservable);
             expect(lifted).to.have.property("query");
             expect(lifted).to.have.property("ref");

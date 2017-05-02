@@ -21,8 +21,9 @@ import {
 } from "../observable/database";
 
 import { QueryOptions, toQuery } from "./ref";
+import { selectValue, selectValueWithKey } from "./selectors";
 import { Composite, Query, Reference, Snapshot, Value } from "./types";
-import { selectValue, selectValueWithKey, ValueWithKey, WithKey } from "./value-with-key";
+import { ValueWithKey, WithKey } from "./value-with-key";
 
 import "rxjs/add/operator/observeOn";
 
@@ -155,9 +156,9 @@ export class ThermiteDatabase implements firebase.database.Database {
 
     value(
         query: string | Query
-    ): ValueObservable<ValueWithKey>;
+    ): ValueObservable<Value | null>;
 
-    value<T extends WithKey>(
+    value<T>(
         query: string | Query,
         valueSelector: (snapshot: Snapshot) => T
     ): ValueObservable<T>;
@@ -169,7 +170,7 @@ export class ThermiteDatabase implements firebase.database.Database {
 
         return this.observeOn(ValueObservable.create(
             (typeof query === "string") ? this.ref(query) : query,
-            (valueSelector as any) || (selectValueWithKey as any)
+            (valueSelector as any) || (selectValue as any)
         )) as ValueObservable<any>;
     }
 

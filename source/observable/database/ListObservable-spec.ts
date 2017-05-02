@@ -13,8 +13,9 @@ import { timeout } from "../../constants-spec";
 import { expectNoListeners } from "../../database/expect-spec";
 import { app } from "../../firebase-spec";
 import { ListObservable } from "./ListObservable";
+import { selectValueWithKey } from "../../database/selectors";
 import { Reference } from "../../database/types";
-import { fromValueWithKey, selectValueWithKey, ValueWithKey } from "../../database/value-with-key";
+import { fromValueWithKey, ValueWithKey } from "../../database/value-with-key";
 
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/skip";

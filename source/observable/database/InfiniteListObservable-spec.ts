@@ -14,8 +14,9 @@ import { timeout } from "../../constants-spec";
 import { expectNoListeners } from "../../database/expect-spec";
 import { app } from "../../firebase-spec";
 import { InfiniteListObservable } from "./InfiniteListObservable";
+import { selectValueWithKey } from "../../database/selectors";
 import { Reference } from "../../database/types";
-import { selectValueWithKey, ValueWithKey } from "../../database/value-with-key";
+import { ValueWithKey } from "../../database/value-with-key";
 
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/take";
