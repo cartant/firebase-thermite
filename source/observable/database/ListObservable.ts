@@ -9,10 +9,10 @@ import { Observer } from "rxjs/Observer";
 import { Operator } from "rxjs/Operator";
 import { Subscriber } from "rxjs/Subscriber";
 import { Subscription, TeardownLogic } from "rxjs/Subscription";
-import { ListEventObservable } from "./ListEventObservable";
+import { WithKey } from "../../database/list-value";
 import { asRef } from "../../database/ref";
 import { Query, Reference, Snapshot } from "../../database/types";
-import { WithKey } from "../../database/value-with-key";
+import { ListEventObservable } from "./ListEventObservable";
 
 import "rxjs/add/operator/scan";
 

@@ -11,10 +11,10 @@ import "firebase/database";
 import { expect } from "chai";
 import { timeout } from "../../constants-spec";
 import { expectNoListeners } from "../../database/expect-spec";
-import { app } from "../../firebase-spec";
-import { MapObservable } from "./MapObservable";
 import { selectValue } from "../../database/selectors";
 import { Reference } from "../../database/types";
+import { app } from "../../firebase-spec";
+import { MapObservable } from "./MapObservable";
 
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/skip";

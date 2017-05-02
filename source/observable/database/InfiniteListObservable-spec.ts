@@ -12,11 +12,11 @@ import { expect } from "chai";
 import { Subject } from "rxjs/Subject";
 import { timeout } from "../../constants-spec";
 import { expectNoListeners } from "../../database/expect-spec";
+import { ListValue } from "../../database/list-value";
+import { selectListValue } from "../../database/selectors";
+import { Reference } from "../../database/types";
 import { app } from "../../firebase-spec";
 import { InfiniteListObservable } from "./InfiniteListObservable";
-import { selectValueWithKey } from "../../database/selectors";
-import { Reference } from "../../database/types";
-import { ValueWithKey } from "../../database/value-with-key";
 
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/take";
@@ -79,7 +79,7 @@ describe("observable/database", function (): void {
                 it("should support lift", () => {
 
                     let notifier = new Subject();
-                    const lifted = InfiniteListObservable.create(sequenceRef, notifier, selectValueWithKey, {
+                    const lifted = InfiniteListObservable.create(sequenceRef, notifier, selectListValue, {
                         pageSize: 3,
                         realtime
                     }).map(Boolean);
@@ -95,7 +95,7 @@ describe("observable/database", function (): void {
                 it("should default to orderByKey", () => {
 
                     let notifier = new Subject();
-                    let result = InfiniteListObservable.create(sequenceRef, notifier, selectValueWithKey, {
+                    let result = InfiniteListObservable.create(sequenceRef, notifier, selectListValue, {
                         pageSize: 3,
                         realtime
                     })
@@ -141,7 +141,7 @@ describe("observable/database", function (): void {
                 it("should support orderByChild", () => {
 
                     let notifier = new Subject();
-                    let result = InfiniteListObservable.create(sequenceRef, notifier, selectValueWithKey, {
+                    let result = InfiniteListObservable.create(sequenceRef, notifier, selectListValue, {
                         pageSize: 3,
                         query: { orderByChild: "number" },
                         realtime
@@ -202,7 +202,7 @@ describe("observable/database", function (): void {
                         .then(() => {
 
                             let notifier = new Subject();
-                            let result = InfiniteListObservable.create(sequenceRef, notifier, selectValueWithKey, {
+                            let result = InfiniteListObservable.create(sequenceRef, notifier, selectListValue, {
                                 pageSize: 3,
                                 query: { orderByChild: "number" },
                                 realtime
@@ -254,7 +254,7 @@ describe("observable/database", function (): void {
                         .then(() => {
 
                             let notifier = new Subject();
-                            let result = InfiniteListObservable.create(sequenceRef, notifier, selectValueWithKey, {
+                            let result = InfiniteListObservable.create(sequenceRef, notifier, selectListValue, {
                                 pageSize: 3,
                                 realtime
                             })
@@ -302,7 +302,7 @@ describe("observable/database", function (): void {
                         .then(() => {
 
                             let notifier = new Subject();
-                            let result = InfiniteListObservable.create(sequenceRef, notifier, selectValueWithKey, {
+                            let result = InfiniteListObservable.create(sequenceRef, notifier, selectListValue, {
                                 pageSize: 3,
                                 realtime
                             })
@@ -335,7 +335,7 @@ describe("observable/database", function (): void {
                 it("should default to orderByKey", () => {
 
                     let notifier = new Subject();
-                    let result = InfiniteListObservable.create(sequenceRef, notifier, selectValueWithKey, {
+                    let result = InfiniteListObservable.create(sequenceRef, notifier, selectListValue, {
                         pageSize: 3,
                         realtime,
                         reverse: true
@@ -382,7 +382,7 @@ describe("observable/database", function (): void {
                 it("should support orderByChild", () => {
 
                     let notifier = new Subject();
-                    let result = InfiniteListObservable.create(sequenceRef, notifier, selectValueWithKey, {
+                    let result = InfiniteListObservable.create(sequenceRef, notifier, selectListValue, {
                         pageSize: 3,
                         query: { orderByChild: "number" },
                         realtime,
@@ -444,7 +444,7 @@ describe("observable/database", function (): void {
                         .then(() => {
 
                             let notifier = new Subject();
-                            let result = InfiniteListObservable.create(sequenceRef, notifier, selectValueWithKey, {
+                            let result = InfiniteListObservable.create(sequenceRef, notifier, selectListValue, {
                                 pageSize: 3,
                                 query: { orderByChild: "number" },
                                 realtime,
@@ -497,7 +497,7 @@ describe("observable/database", function (): void {
                         .then(() => {
 
                             let notifier = new Subject();
-                            let result = InfiniteListObservable.create(sequenceRef, notifier, selectValueWithKey, {
+                            let result = InfiniteListObservable.create(sequenceRef, notifier, selectListValue, {
                                 pageSize: 3,
                                 realtime,
                                 reverse: true
@@ -567,7 +567,7 @@ describe("observable/database", function (): void {
                     }
 
                     let notifier = new Subject();
-                    InfiniteListObservable.create(sequenceRef, notifier, selectValueWithKey, {
+                    InfiniteListObservable.create(sequenceRef, notifier, selectListValue, {
                         pageSize: 3,
                         realtime: true
                     })
@@ -615,7 +615,7 @@ describe("observable/database", function (): void {
                     }
 
                     let notifier = new Subject();
-                    InfiniteListObservable.create(sequenceRef, notifier, selectValueWithKey, {
+                    InfiniteListObservable.create(sequenceRef, notifier, selectListValue, {
                         pageSize: 3,
                         realtime: true
                     })
@@ -665,7 +665,7 @@ describe("observable/database", function (): void {
                     }
 
                     let notifier = new Subject();
-                    InfiniteListObservable.create(sequenceRef, notifier, selectValueWithKey, {
+                    InfiniteListObservable.create(sequenceRef, notifier, selectListValue, {
                         pageSize: 3,
                         realtime: true
                     })
@@ -713,7 +713,7 @@ describe("observable/database", function (): void {
                     }
 
                     let notifier = new Subject();
-                    InfiniteListObservable.create(sequenceRef, notifier, selectValueWithKey, {
+                    InfiniteListObservable.create(sequenceRef, notifier, selectListValue, {
                         pageSize: 3,
                         realtime: true
                     })

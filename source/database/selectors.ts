@@ -4,21 +4,21 @@
  * found in the LICENSE file at https://github.com/cartant/firebase-thermite
  */
 
+import { ListValue } from "./list-value";
 import { isPrimitive, Snapshot, Value } from "./types";
-import { ValueWithKey } from "./value-with-key";
+
+export function selectListValue(snapshot: Snapshot): ListValue {
+
+    const val = snapshot.val();
+    let listValue = ((val === undefined) || (val === null)) ? { $value: null } : val;
+    if (isPrimitive(listValue)) {
+        listValue = { $value: listValue };
+    }
+    listValue.$key = snapshot.ref.key;
+    return listValue;
+}
 
 export function selectValue(snapshot: Snapshot): Value | null {
 
     return snapshot.val();
-}
-
-export function selectValueWithKey(snapshot: Snapshot): ValueWithKey {
-
-    const val = snapshot.val();
-    let valueWithKey = ((val === undefined) || (val === null)) ? { $value: null } : val;
-    if (isPrimitive(valueWithKey)) {
-        valueWithKey = { $value: valueWithKey };
-    }
-    valueWithKey.$key = snapshot.ref.key;
-    return valueWithKey;
 }

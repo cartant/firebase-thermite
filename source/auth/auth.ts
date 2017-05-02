@@ -7,9 +7,9 @@
 import * as firebase from "firebase/app";
 import "firebase/auth";
 
-import { AuthStateObservable } from "../observable/auth";
 import { Observable } from "rxjs/Observable";
 import { Scheduler } from "rxjs/Scheduler";
+import { AuthStateObservable } from "../observable/auth";
 
 import "rxjs/add/operator/observeOn";
 

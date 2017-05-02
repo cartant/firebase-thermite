@@ -8,30 +8,30 @@ import * as firebase from "firebase/app";
 import "firebase/database";
 
 import { expect } from "chai";
+import { fromListValue, ListValue } from "./list-value";
 import { Snapshot, Value } from "./types";
-import { fromValueWithKey, ValueWithKey } from "./value-with-key";
 
 describe("database", () => {
 
-    describe("value-with-key", () => {
+    describe("list-value", () => {
 
-        describe("fromValueWithKey", () => {
+        describe("fromListValue", () => {
 
             it("should convert to primitive values", () => {
 
-                let value = fromValueWithKey({ $key: "attending", $value: true });
+                let value = fromListValue({ $key: "attending", $value: true });
                 expect(value).to.equal(true);
 
-                value = fromValueWithKey({ $key: "age", $value: 42 });
+                value = fromListValue({ $key: "age", $value: 42 });
                 expect(value).to.equal(42);
 
-                value = fromValueWithKey({ $key: "name", $value: "alice" });
+                value = fromListValue({ $key: "name", $value: "alice" });
                 expect(value).to.equal("alice");
             });
 
             it("should convert to object values", () => {
 
-                let value = fromValueWithKey({
+                let value = fromListValue({
                     $key: "a",
                     age: 42,
                     name: "alice"

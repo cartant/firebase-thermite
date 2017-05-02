@@ -9,12 +9,12 @@ import { Operator } from "rxjs/Operator";
 import { Subscriber } from "rxjs/Subscriber";
 import { Subscription, TeardownLogic } from "rxjs/Subscription";
 import { DEFAULT_PAGE_SIZE } from "../../database/constants";
+import { WithKey } from "../../database/list-value";
+import { asRef } from "../../database/ref";
+import { Query, Reference, Snapshot } from "../../database/types";
 import { subscribeNonRealtime } from "./InfiniteListObservable-non-realtime";
 import { subscribeRealtime } from "./InfiniteListObservable-realtime";
 import { InfiniteListOptions } from "./InfiniteListObservable-types";
-import { asRef } from "../../database/ref";
-import { Query, Reference, Snapshot } from "../../database/types";
-import { WithKey } from "../../database/value-with-key";
 
 export { InfiniteListOptions };
 

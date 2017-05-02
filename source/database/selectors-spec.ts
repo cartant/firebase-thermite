@@ -8,9 +8,9 @@ import * as firebase from "firebase/app";
 import "firebase/database";
 
 import { expect } from "chai";
-import { selectValue, selectValueWithKey } from "./selectors";
+import { ListValue } from "./list-value";
+import { selectListValue, selectValue } from "./selectors";
 import { Snapshot, Value } from "./types";
-import { ValueWithKey } from "./value-with-key";
 
 describe("database", () => {
 
@@ -24,6 +24,37 @@ describe("database", () => {
             };
             return anything as Snapshot;
         }
+
+        describe("selectListValue", () => {
+
+            it("should convert snapshots with primitive values", () => {
+
+                let valueWithKey = selectListValue(mockSnapshot("attending", true));
+                expect(valueWithKey).to.have.property("$key", "attending");
+                expect(valueWithKey).to.have.property("$value", true);
+
+                valueWithKey = selectListValue(mockSnapshot("age", 42));
+                expect(valueWithKey).to.have.property("$key", "age");
+                expect(valueWithKey).to.have.property("$value", 42);
+
+                valueWithKey = selectListValue(mockSnapshot("name", "alice"));
+                expect(valueWithKey).to.have.property("$key", "name");
+                expect(valueWithKey).to.have.property("$value", "alice");
+            });
+
+            it("should convert snapshots with object values", () => {
+
+                let valueWithKey = selectListValue(mockSnapshot("a", {
+                    age: 42,
+                    name: "alice"
+                }));
+                expect(valueWithKey).to.deep.equal({
+                    $key: "a",
+                    age: 42,
+                    name: "alice"
+                });
+            });
+        });
 
         describe("selectValue", () => {
 
@@ -46,37 +77,6 @@ describe("database", () => {
                     name: "alice"
                 }));
                 expect(value).to.deep.equal({
-                    age: 42,
-                    name: "alice"
-                });
-            });
-        });
-
-        describe("selectValueWithKey", () => {
-
-            it("should convert snapshots with primitive values", () => {
-
-                let valueWithKey = selectValueWithKey(mockSnapshot("attending", true));
-                expect(valueWithKey).to.have.property("$key", "attending");
-                expect(valueWithKey).to.have.property("$value", true);
-
-                valueWithKey = selectValueWithKey(mockSnapshot("age", 42));
-                expect(valueWithKey).to.have.property("$key", "age");
-                expect(valueWithKey).to.have.property("$value", 42);
-
-                valueWithKey = selectValueWithKey(mockSnapshot("name", "alice"));
-                expect(valueWithKey).to.have.property("$key", "name");
-                expect(valueWithKey).to.have.property("$value", "alice");
-            });
-
-            it("should convert snapshots with object values", () => {
-
-                let valueWithKey = selectValueWithKey(mockSnapshot("a", {
-                    age: 42,
-                    name: "alice"
-                }));
-                expect(valueWithKey).to.deep.equal({
-                    $key: "a",
                     age: 42,
                     name: "alice"
                 });

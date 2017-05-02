@@ -11,9 +11,9 @@ import "firebase/database";
 import { expect } from "chai";
 import { timeout } from "../../constants-spec";
 import { expectNoListeners } from "../../database/expect-spec";
-import { app } from "../../firebase-spec";
 import { selectValue } from "../../database/selectors";
 import { Reference } from "../../database/types";
+import { app } from "../../firebase-spec";
 import { ValueObservable } from "./ValueObservable";
 
 import "rxjs/add/operator/map";

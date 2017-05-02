@@ -9,9 +9,9 @@ import { Observer } from "rxjs/Observer";
 import { Operator } from "rxjs/Operator";
 import { Subscriber } from "rxjs/Subscriber";
 import { Subscription, TeardownLogic } from "rxjs/Subscription";
-import { MapEventObservable } from "./MapEventObservable";
 import { asRef } from "../../database/ref";
 import { Composite, Query, Reference, Snapshot } from "../../database/types";
+import { MapEventObservable } from "./MapEventObservable";
 
 import "rxjs/add/operator/scan";
 

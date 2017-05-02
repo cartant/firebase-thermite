@@ -9,11 +9,11 @@ import { Observer } from "rxjs/Observer";
 import { Subject } from "rxjs/Subject";
 import { Subscriber } from "rxjs/Subscriber";
 import { TeardownLogic } from "rxjs/Subscription";
-import { InfiniteListQuery, Page } from "./InfiniteListObservable-types";
-import { ListEvent, ListEventObservable } from "./ListEventObservable";
+import { WithKey } from "../../database/list-value";
 import { toQuery } from "../../database/ref";
 import { Reference, Snapshot } from "../../database/types";
-import { WithKey } from "../../database/value-with-key";
+import { InfiniteListQuery, Page } from "./InfiniteListObservable-types";
+import { ListEvent, ListEventObservable } from "./ListEventObservable";
 
 import "rxjs/add/observable/defer";
 import "rxjs/add/observable/merge";
