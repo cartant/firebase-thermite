@@ -4,7 +4,7 @@
  * found in the LICENSE file at https://github.com/cartant/firebase-thermite
  */
 
-import * as firebase from "firebase/app";
+import * as firebase from "firebase";
 
 export function asPromise(thenable: firebase.database.ThenableReference): Promise<firebase.database.Reference>;
 

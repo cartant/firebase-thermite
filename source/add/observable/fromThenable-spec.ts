@@ -5,8 +5,7 @@
  */
 /*tslint:disable:no-unused-expression*/
 
-import * as firebase from "firebase/app";
-import "firebase/database";
+import * as firebase from "firebase";
 
 import { expect } from "chai";
 import { Observable } from "rxjs/Observable";

@@ -4,8 +4,7 @@
  * found in the LICENSE file at https://github.com/cartant/firebase-thermite
  */
 
-import * as firebase from "firebase/app";
-import "firebase/storage";
+import * as firebase from "firebase";
 
 export type FullMetadata = firebase.storage.FullMetadata;
 export type StorageReference = firebase.storage.Reference;

@@ -4,8 +4,7 @@
  * found in the LICENSE file at https://github.com/cartant/firebase-thermite
  */
 
-import * as firebase from "firebase/app";
-import "firebase/auth";
+import * as firebase from "firebase";
 
 import { Observable } from "rxjs/Observable";
 import { Scheduler } from "rxjs/Scheduler";

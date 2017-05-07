@@ -1,3 +1,4 @@
+import ignore from "rollup-plugin-ignore";
 import nodeResolve from "rollup-plugin-node-resolve";
 import { external, globals } from "./rollup-constants";
 
@@ -9,5 +10,8 @@ export default {
     format: "umd",
     globals: Object.assign({}, globals),
     moduleName: "firebaseThermite",
-    plugins: [nodeResolve({})]
+    plugins: [
+        ignore(["firebase"]),
+        nodeResolve({})
+    ]
 }
