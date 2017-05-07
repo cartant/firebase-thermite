@@ -76,8 +76,8 @@ export class ThermiteDatabase implements firebase.database.Database {
     infiniteList(
         ref: string | Reference,
         notifier: Observable<any>,
-        valueSelector: (snapshot: Snapshot) => any = null,
-        keySelector: (value: any) => string = null,
+        valueSelector: (snapshot: Snapshot) => any = undefined,
+        keySelector: (value: any) => string = undefined,
         options: InfiniteListOptions = {}
     ): InfiniteListObservable<any> {
 
