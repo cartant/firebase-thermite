@@ -32,15 +32,18 @@ describe("database", () => {
 
             it("should convert to composite values", () => {
 
-                let value = fromKeyedValue({
+                const keyedValue = {
                     $key: "a",
                     age: 42,
                     name: "alice"
-                });
+                };
+                const value = fromKeyedValue(keyedValue);
+
                 expect(value).to.deep.equal({
                     age: 42,
                     name: "alice"
                 });
+                expect(value).to.not.equal(keyedValue);
             });
 
             it("should convert to null values", () => {
@@ -66,15 +69,18 @@ describe("database", () => {
 
             it("should convert composite values", () => {
 
-                let keyedValue = toKeyedValue({
+                const value = {
                     age: 42,
                     name: "alice"
-                }, "a");
+                };
+                const keyedValue = toKeyedValue(value, "a");
+
                 expect(keyedValue).to.deep.equal({
                     $key: "a",
                     age: 42,
                     name: "alice"
                 });
+                expect(keyedValue).to.not.equal(value);
             });
 
             it("should convert undefined values", () => {
