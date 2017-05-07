@@ -4,7 +4,7 @@
  * found in the LICENSE file at https://github.com/cartant/firebase-thermite
  */
 
-import * as firebase from "firebase";
+import { firebase } from "../firebase";
 
 export class ThermiteApp implements firebase.app.App {
 

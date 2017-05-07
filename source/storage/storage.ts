@@ -4,10 +4,9 @@
  * found in the LICENSE file at https://github.com/cartant/firebase-thermite
  */
 
-import * as firebase from "firebase";
-
 import { Observable } from "rxjs/Observable";
 import { Scheduler } from "rxjs/Scheduler";
+import { firebase } from "../firebase";
 
 import "rxjs/add/operator/observeOn";
 

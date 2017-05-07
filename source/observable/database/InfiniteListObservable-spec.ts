@@ -5,8 +5,6 @@
  */
 /*tslint:disable:no-unused-expression*/
 
-import * as firebase from "firebase";
-
 import { expect } from "chai";
 import { Subject } from "rxjs/Subject";
 import { timeout } from "../../constants-spec";
@@ -14,6 +12,7 @@ import { expectNoListeners } from "../../database/expect-spec";
 import { KeyedValue } from "../../database/keyed-value";
 import { selectKey, selectKeyedValue } from "../../database/selectors";
 import { Reference } from "../../database/types";
+import { firebase } from "../../firebase";
 import { app } from "../../firebase-spec";
 import { InfiniteListObservable } from "./InfiniteListObservable";
 

@@ -4,4 +4,5 @@
  * found in the LICENSE file at https://github.com/cartant/firebase-thermite
  */
 
-import { firebase } from "../firebase";
+import * as _firebase from "firebase";
+export type firebase = typeof _firebase;

@@ -5,11 +5,10 @@
  */
 /*tslint:disable:no-unused-expression*/
 
-import * as firebase from "firebase";
-
 import { expect } from "chai";
 import { Observable } from "rxjs/Observable";
 import { timeout } from "../../constants-spec";
+import { firebase } from "../../firebase";
 import { app } from "../../firebase-spec";
 
 import "rxjs/add/operator/toPromise";

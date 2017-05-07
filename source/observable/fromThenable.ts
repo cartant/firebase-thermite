@@ -4,11 +4,10 @@
  * found in the LICENSE file at https://github.com/cartant/firebase-thermite
  */
 
-import * as firebase from "firebase";
-
 import { Observable } from "rxjs/Observable";
 import { IScheduler } from "rxjs/Scheduler";
 import { fromPromise } from "rxjs/observable/fromPromise";
+import { firebase } from "../firebase";
 
 export function fromThenable(thenable: firebase.database.ThenableReference, scheduler?: IScheduler): Observable<firebase.database.Reference>;
 

@@ -4,10 +4,10 @@
  * found in the LICENSE file at https://github.com/cartant/firebase-thermite
  */
 
-import * as firebase from "firebase";
-
 import { Observable } from "rxjs/Observable";
 import { Scheduler } from "rxjs/Scheduler";
+import { firebase } from "../firebase";
+import { Keyed, KeyedValue } from "./keyed-value";
 
 import {
     InfiniteListObservable,
@@ -19,7 +19,6 @@ import {
     ValueObservable
 } from "../observable/database";
 
-import { Keyed, KeyedValue } from "./keyed-value";
 import { QueryOptions, toQuery } from "./ref";
 import { selectKey, selectKeyedValue, selectValue } from "./selectors";
 import { CompositeValue, Query, Reference, Snapshot, Value } from "./types";

@@ -4,9 +4,8 @@
  * found in the LICENSE file at https://github.com/cartant/firebase-thermite
  */
 
-import * as firebase from "firebase";
-
 import { expect } from "chai";
+import { firebase } from "../firebase";
 import { KeyedValue } from "./keyed-value";
 import { selectKeyedValue, selectValue } from "./selectors";
 import { Snapshot, Value } from "./types";

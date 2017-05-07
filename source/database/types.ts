@@ -4,7 +4,7 @@
  * found in the LICENSE file at https://github.com/cartant/firebase-thermite
  */
 
-import * as firebase from "firebase";
+import { firebase } from "../firebase";
 
 export type PrimitiveValue = boolean | number | string;
 export type CompositeValue = { [key: string]: PrimitiveValue | CompositeValue };

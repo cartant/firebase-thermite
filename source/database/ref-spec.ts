@@ -5,10 +5,9 @@
  */
 /*tslint:disable:no-unused-expression*/
 
-import * as firebase from "firebase";
-
 import { expect } from "chai";
 import { Mock } from "firebase-nightlight";
+import { firebase } from "../firebase";
 import { app } from "../firebase-spec";
 import { asRef, isQuery, isRef, toQuery } from "./ref";
 

@@ -4,14 +4,13 @@
  * found in the LICENSE file at https://github.com/cartant/firebase-thermite
  */
 
-import * as firebase from "firebase";
-
 import { Observable } from "rxjs/Observable";
 import { Observer } from "rxjs/Observer";
 import { Operator } from "rxjs/Operator";
 import { Subscriber } from "rxjs/Subscriber";
 import { Subscription, TeardownLogic } from "rxjs/Subscription";
 import { Snapshot } from "../../database/types";
+import { firebase } from "../../firebase";
 
 export interface Info {
     readonly connected: boolean;

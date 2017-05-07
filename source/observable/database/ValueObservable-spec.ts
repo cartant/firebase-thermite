@@ -5,13 +5,12 @@
  */
 /*tslint:disable:no-unused-expression*/
 
-import * as firebase from "firebase";
-
 import { expect } from "chai";
 import { timeout } from "../../constants-spec";
 import { expectNoListeners } from "../../database/expect-spec";
 import { selectValue } from "../../database/selectors";
 import { Reference } from "../../database/types";
+import { firebase } from "../../firebase";
 import { app } from "../../firebase-spec";
 import { ValueObservable } from "./ValueObservable";
 

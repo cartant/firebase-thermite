@@ -5,10 +5,9 @@
  */
 /*tslint:disable:no-unused-expression*/
 
-import * as firebase from "firebase";
-
 import { expect } from "chai";
 import { ThermiteAuth } from "./auth";
+import { firebase } from "../firebase";
 import { app } from "../firebase-spec";
 
 describe("auth", () => {
