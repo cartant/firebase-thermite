@@ -20,10 +20,10 @@ import {
     ValueObservable
 } from "../observable/database";
 
-import { ListValue, WithKey } from "./list-value";
+import { Keyed, KeyedValue } from "./keyed-value";
 import { QueryOptions, toQuery } from "./ref";
-import { selectListValue, selectValue } from "./selectors";
-import { Composite, Query, Reference, Snapshot, Value } from "./types";
+import { selectKeyedValue, selectValue } from "./selectors";
+import { CompositeValue, Query, Reference, Snapshot, Value } from "./types";
 
 import "rxjs/add/operator/observeOn";
 
@@ -58,9 +58,9 @@ export class ThermiteDatabase implements firebase.database.Database {
         ref: string | Reference,
         notifier: Observable<any>,
         options?: InfiniteListOptions
-    ): InfiniteListObservable<ListValue[]>;
+    ): InfiniteListObservable<KeyedValue[]>;
 
-    infiniteList<T extends WithKey>(
+    infiniteList<T extends Keyed>(
         ref: string | Reference,
         notifier: Observable<any>,
         valueSelector: (snapshot: Snapshot) => T,
@@ -82,7 +82,7 @@ export class ThermiteDatabase implements firebase.database.Database {
         return this.observeOn(InfiniteListObservable.create(
             (typeof ref === "string") ? this.ref(ref) : ref,
             notifier,
-            (valueSelector as any) || (selectListValue as any),
+            (valueSelector as any) || (selectKeyedValue as any),
             options
         )) as InfiniteListObservable<any>;
     }
@@ -101,9 +101,9 @@ export class ThermiteDatabase implements firebase.database.Database {
 
     list(
         query: string | Query
-    ): ListObservable<ListValue[]>;
+    ): ListObservable<KeyedValue[]>;
 
-    list<T extends WithKey>(
+    list<T extends Keyed>(
         query: string | Query,
         valueSelector: (snapshot: Snapshot) => T
     ): ListObservable<T[]>;
@@ -115,13 +115,13 @@ export class ThermiteDatabase implements firebase.database.Database {
 
         return this.observeOn(ListObservable.create(
             (typeof query === "string") ? this.ref(query) : query,
-            (valueSelector as any) || (selectListValue as any)
+            (valueSelector as any) || (selectKeyedValue as any)
         )) as ListObservable<any>;
     }
 
     map(
         query: string | Query
-    ): MapObservable<Composite>;
+    ): MapObservable<CompositeValue>;
 
     map<T>(
         query: string | Query,

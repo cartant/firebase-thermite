@@ -10,7 +10,7 @@ import { Operator } from "rxjs/Operator";
 import { Subscriber } from "rxjs/Subscriber";
 import { Subscription, TeardownLogic } from "rxjs/Subscription";
 import { asRef } from "../../database/ref";
-import { Composite, Query, Reference, Snapshot } from "../../database/types";
+import { Query, Reference, Snapshot } from "../../database/types";
 import { MapEventObservable } from "./MapEventObservable";
 
 import "rxjs/add/operator/scan";

@@ -9,7 +9,7 @@ import { Observer } from "rxjs/Observer";
 import { Operator } from "rxjs/Operator";
 import { Subscriber } from "rxjs/Subscriber";
 import { Subscription, TeardownLogic } from "rxjs/Subscription";
-import { WithKey } from "../../database/list-value";
+import { Keyed } from "../../database/keyed-value";
 import { asRef } from "../../database/ref";
 import { Query, Reference, Snapshot } from "../../database/types";
 import { ListEventObservable } from "./ListEventObservable";
@@ -18,7 +18,7 @@ import "rxjs/add/operator/scan";
 
 export class ListObservable<T> extends Observable<T> {
 
-    static create<T extends WithKey>(
+    static create<T extends Keyed>(
         query: Query,
         valueSelector: (snapshot: Snapshot) => T
     ): ListObservable<T[]> {

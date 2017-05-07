@@ -11,8 +11,8 @@ import "firebase/database";
 import { expect } from "chai";
 import { timeout } from "../../constants-spec";
 import { expectNoListeners } from "../../database/expect-spec";
-import { fromListValue, ListValue } from "../../database/list-value";
-import { selectListValue } from "../../database/selectors";
+import { fromKeyedValue, KeyedValue } from "../../database/keyed-value";
+import { selectKeyedValue } from "../../database/selectors";
 import { Reference } from "../../database/types";
 import { app } from "../../firebase-spec";
 import { ListObservable } from "./ListObservable";
@@ -43,7 +43,7 @@ describe("observable/database", function (): void {
 
         it("should emit the initial list", () => {
 
-            return ListObservable.create(listRef, selectListValue)
+            return ListObservable.create(listRef, selectKeyedValue)
                 .take(1)
                 .toPromise()
                 .then((list) => {
@@ -58,7 +58,7 @@ describe("observable/database", function (): void {
 
         it("should emit when elements are added", () => {
 
-            return ListObservable.create(listRef, selectListValue)
+            return ListObservable.create(listRef, selectKeyedValue)
                 .map((value, index) => {
 
                     if (index === 0) {
@@ -83,7 +83,7 @@ describe("observable/database", function (): void {
 
         it("should emit when elements are changed", () => {
 
-            return ListObservable.create(listRef, selectListValue)
+            return ListObservable.create(listRef, selectKeyedValue)
                 .map((value, index) => {
 
                     if (index === 0) {
@@ -108,7 +108,7 @@ describe("observable/database", function (): void {
 
         it("should emit when elements are removed", () => {
 
-            return ListObservable.create(listRef, selectListValue)
+            return ListObservable.create(listRef, selectKeyedValue)
                 .map((value, index) => {
 
                     if (index === 0) {
@@ -133,20 +133,20 @@ describe("observable/database", function (): void {
 
         it("should support lift", () => {
 
-            const lifted = ListObservable.create(listRef, selectListValue).map(Boolean);
+            const lifted = ListObservable.create(listRef, selectKeyedValue).map(Boolean);
             expect(lifted).to.be.an.instanceof(ListObservable);
             expect(lifted).to.have.property("query");
             expect(lifted).to.have.property("ref");
         });
 
-        function toKeys(list: ListValue[]): string[] {
+        function toKeys(list: KeyedValue[]): string[] {
 
             return list.map((element) => element.$key);
         }
 
-        function toValues(list: ListValue[]): any[] {
+        function toValues(list: KeyedValue[]): any[] {
 
-            return list.map(fromListValue);
+            return list.map(fromKeyedValue);
         }
     });
 });

@@ -8,7 +8,7 @@ import "./add/observable/fromThenable-spec";
 import "./app/app-spec";
 import "./auth/auth-spec";
 import "./database/database-spec";
-import "./database/list-value-spec";
+import "./database/keyed-value-spec";
 import "./database/ref-spec";
 import "./database/selectors-spec";
 import "./messaging/messaging-spec";

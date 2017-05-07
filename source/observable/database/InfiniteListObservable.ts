@@ -9,7 +9,7 @@ import { Operator } from "rxjs/Operator";
 import { Subscriber } from "rxjs/Subscriber";
 import { Subscription, TeardownLogic } from "rxjs/Subscription";
 import { DEFAULT_PAGE_SIZE } from "../../database/constants";
-import { WithKey } from "../../database/list-value";
+import { Keyed } from "../../database/keyed-value";
 import { asRef } from "../../database/ref";
 import { Query, Reference, Snapshot } from "../../database/types";
 import { subscribeNonRealtime } from "./InfiniteListObservable-non-realtime";
@@ -20,7 +20,7 @@ export { InfiniteListOptions };
 
 export class InfiniteListObservable<T> extends Observable<T> {
 
-    static create<T extends WithKey>(
+    static create<T extends Keyed>(
         ref: Reference,
         notifier: Observable<any>,
         valueSelector: (snapshot: Snapshot) => T, {

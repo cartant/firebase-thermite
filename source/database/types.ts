@@ -7,15 +7,15 @@
 import * as firebase from "firebase/app";
 import "firebase/database";
 
-export type Primitive = boolean | number | string;
-export type Composite = { [key: string]: Primitive | Composite };
-export type Value = Primitive | Composite;
+export type PrimitiveValue = boolean | number | string;
+export type CompositeValue = { [key: string]: PrimitiveValue | CompositeValue };
+export type Value = PrimitiveValue | CompositeValue;
 
 export type Query = firebase.database.Query;
 export type Reference = firebase.database.Reference;
 export type Snapshot = firebase.database.DataSnapshot;
 
-export function isPrimitive(value: Value): value is Primitive {
+export function isPrimitiveValue(value: Value): value is PrimitiveValue {
 
     return (/boolean|number|string/).test(typeof value);
 }

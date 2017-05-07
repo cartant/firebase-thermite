@@ -7,7 +7,7 @@
 import * as firebase from "firebase/app";
 import "firebase/database";
 
-import { Primitive, Query, Reference } from "./types";
+import { PrimitiveValue, Query, Reference } from "./types";
 
 export function asRef(ref: Query | Reference): Reference {
 
@@ -98,7 +98,7 @@ export function toQuery(
 
 export interface ValueKeyOption {
     key: string;
-    value: Primitive;
+    value: PrimitiveValue;
 }
 
 export interface QueryOptions {
@@ -106,9 +106,9 @@ export interface QueryOptions {
     orderByKey?: boolean;
     orderByPriority?: boolean;
     orderByValue?: boolean;
-    endAt?: null | Primitive | ValueKeyOption;
-    equalTo?: null | Primitive | ValueKeyOption;
+    endAt?: null | PrimitiveValue | ValueKeyOption;
+    equalTo?: null | PrimitiveValue | ValueKeyOption;
     limitToFirst?: number;
     limitToLast?: number;
-    startAt?: null | Primitive | ValueKeyOption;
+    startAt?: null | PrimitiveValue | ValueKeyOption;
 }

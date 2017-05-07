@@ -5,7 +5,7 @@
  */
 
 export * from "./database";
-export * from "./list-value";
+export * from "./keyed-value";
 export * from "./ref";
 export * from "./selectors";
 export * from "./types";

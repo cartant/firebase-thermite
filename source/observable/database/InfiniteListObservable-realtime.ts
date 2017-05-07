@@ -9,7 +9,7 @@ import { Observer } from "rxjs/Observer";
 import { Subject } from "rxjs/Subject";
 import { Subscriber } from "rxjs/Subscriber";
 import { TeardownLogic } from "rxjs/Subscription";
-import { WithKey } from "../../database/list-value";
+import { Keyed } from "../../database/keyed-value";
 import { toQuery } from "../../database/ref";
 import { Reference, Snapshot } from "../../database/types";
 import { InfiniteListQuery, Page } from "./InfiniteListObservable-types";
@@ -27,7 +27,7 @@ import "rxjs/add/operator/startWith";
 import "rxjs/add/operator/takeUntil";
 import "rxjs/add/operator/takeWhile";
 
-export function subscribeRealtime<T extends WithKey>(
+export function subscribeRealtime<T extends Keyed>(
     ref: Reference,
     notifier: Observable<any>,
     valueSelector: (snapshot: Snapshot) => T,
