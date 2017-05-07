@@ -21,7 +21,7 @@ import {
 
 import { Keyed, KeyedValue } from "./keyed-value";
 import { QueryOptions, toQuery } from "./ref";
-import { selectKeyedValue, selectValue } from "./selectors";
+import { selectKey, selectKeyedValue, selectValue } from "./selectors";
 import { CompositeValue, Query, Reference, Snapshot, Value } from "./types";
 
 import "rxjs/add/operator/observeOn";
@@ -66,10 +66,19 @@ export class ThermiteDatabase implements firebase.database.Database {
         options?: InfiniteListOptions
     ): InfiniteListObservable<T[]>;
 
+    infiniteList<T>(
+        ref: string | Reference,
+        notifier: Observable<any>,
+        valueSelector: (snapshot: Snapshot) => T,
+        keySelector: (value: T) => string,
+        options?: InfiniteListOptions
+    ): InfiniteListObservable<T[]>;
+
     infiniteList(
         ref: string | Reference,
         notifier: Observable<any>,
         valueSelector: (snapshot: Snapshot) => any = null,
+        keySelector: (value: any) => string = null,
         options: InfiniteListOptions = {}
     ): InfiniteListObservable<any> {
 
@@ -78,10 +87,16 @@ export class ThermiteDatabase implements firebase.database.Database {
             valueSelector = undefined;
         }
 
+        if (typeof keySelector === "object") {
+            options = keySelector;
+            keySelector = undefined;
+        }
+
         return this.observeOn(InfiniteListObservable.create(
             (typeof ref === "string") ? this.ref(ref) : ref,
             notifier,
             (valueSelector as any) || (selectKeyedValue as any),
+            (keySelector as any) || (selectKey as any),
             options
         )) as InfiniteListObservable<any>;
     }
@@ -107,14 +122,22 @@ export class ThermiteDatabase implements firebase.database.Database {
         valueSelector: (snapshot: Snapshot) => T
     ): ListObservable<T[]>;
 
+    list<T>(
+        query: string | Query,
+        valueSelector: (snapshot: Snapshot) => T,
+        keySelector: (value: T) => string
+    ): ListObservable<T[]>;
+
     list(
         query: string | Query,
-        valueSelector: (snapshot: Snapshot) => any = null
+        valueSelector: (snapshot: Snapshot) => any = null,
+        keySelector: (value: any) => string = null
     ): ListObservable<any> {
 
         return this.observeOn(ListObservable.create(
             (typeof query === "string") ? this.ref(query) : query,
-            (valueSelector as any) || (selectKeyedValue as any)
+            (valueSelector as any) || (selectKeyedValue as any),
+            (keySelector as any) || (selectKey as any)
         )) as ListObservable<any>;
     }
 

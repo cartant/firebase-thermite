@@ -20,10 +20,11 @@ export { InfiniteListOptions };
 
 export class InfiniteListObservable<T> extends Observable<T> {
 
-    static create<T extends Keyed>(
+    static create<T>(
         ref: Reference,
         notifier: Observable<any>,
-        valueSelector: (snapshot: Snapshot) => T, {
+        valueSelector: (snapshot: Snapshot) => T,
+        keySelector: (value: T) => string, {
             pageSize = DEFAULT_PAGE_SIZE,
             query = { orderByKey: true },
             realtime = true,
@@ -36,11 +37,11 @@ export class InfiniteListObservable<T> extends Observable<T> {
 
         if (query.orderByKey) {
             initQueryKey = reverse ? undefined : "";
-            queryKeySelector = (value: T) => value.$key;
+            queryKeySelector = keySelector;
         } else if (query.orderByChild) {
             initQueryKey = reverse ? undefined : null;
             const child = query.orderByChild;
-            queryKeySelector = (value: T) => ({ key: value.$key, value: value[child] });
+            queryKeySelector = (value: T) => ({ key: keySelector(value), value: value[child] });
         } else {
             throw new Error("Unexpected order (or no order) specified.");
         }
@@ -51,6 +52,7 @@ export class InfiniteListObservable<T> extends Observable<T> {
                 ref,
                 notifier,
                 valueSelector,
+                keySelector,
                 pageSize,
                 query,
                 initQueryKey,
@@ -62,6 +64,7 @@ export class InfiniteListObservable<T> extends Observable<T> {
                 ref,
                 notifier,
                 valueSelector,
+                keySelector,
                 pageSize,
                 query,
                 initQueryKey,

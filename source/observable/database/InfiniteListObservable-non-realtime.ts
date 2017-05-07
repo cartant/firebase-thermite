@@ -9,7 +9,6 @@ import { Observer } from "rxjs/Observer";
 import { Subject } from "rxjs/Subject";
 import { Subscriber } from "rxjs/Subscriber";
 import { TeardownLogic } from "rxjs/Subscription";
-import { Keyed } from "../../database/keyed-value";
 import { toQuery } from "../../database/ref";
 import { Reference, Snapshot } from "../../database/types";
 import { InfiniteListQuery, Page } from "./InfiniteListObservable-types";
@@ -25,10 +24,11 @@ import "rxjs/add/operator/share";
 import "rxjs/add/operator/startWith";
 import "rxjs/add/operator/takeUntil";
 
-export function subscribeNonRealtime<T extends Keyed>(
+export function subscribeNonRealtime<T>(
     ref: Reference,
     notifier: Observable<any>,
     valueSelector: (snapshot: Snapshot) => T,
+    keySelector: (value: T) => string,
     pageSize: number,
     query: InfiniteListQuery,
     initQueryKey: any,
@@ -55,7 +55,7 @@ export function subscribeNonRealtime<T extends Keyed>(
                         ...query,
                         endAt: lastKey,
                         limitToLast: lastKey ? (pageSize + 1) : pageSize
-                    }), valueSelector)
+                    }), valueSelector, keySelector)
                     .map((elements) => {
                         const page = { elements, index, lastKey };
                         page.elements.reverse();
@@ -81,7 +81,7 @@ export function subscribeNonRealtime<T extends Keyed>(
                         ...query,
                         limitToFirst: lastKey ? (pageSize + 1) : pageSize,
                         startAt: lastKey
-                    }), valueSelector)
+                    }), valueSelector, keySelector)
                     .map((elements) => {
                         const page = { elements, index, lastKey };
                         if (lastKey) {

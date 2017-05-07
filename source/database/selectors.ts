@@ -7,6 +7,11 @@
 import { KeyedValue, toKeyedValue } from "./keyed-value";
 import { Snapshot, Value } from "./types";
 
+export function selectKey(value: KeyedValue): string {
+
+    return value.$key;
+}
+
 export function selectKeyedValue(snapshot: Snapshot): KeyedValue {
 
     return toKeyedValue(snapshot.val(), snapshot.ref.key);

@@ -4,7 +4,7 @@
  * found in the LICENSE file at https://github.com/cartant/firebase-thermite
  */
 
-import { isPrimitiveValue, PrimitiveValue, Snapshot, Value } from "./types";
+import { isPrimitiveValue, PrimitiveValue, Value } from "./types";
 
 export interface Keyed {
     readonly $key: string;

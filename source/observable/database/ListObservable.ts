@@ -18,13 +18,14 @@ import "rxjs/add/operator/scan";
 
 export class ListObservable<T> extends Observable<T> {
 
-    static create<T extends Keyed>(
+    static create<T>(
         query: Query,
-        valueSelector: (snapshot: Snapshot) => T
+        valueSelector: (snapshot: Snapshot) => T,
+        keySelector: (value: T) => string
     ): ListObservable<T[]> {
 
         const elementSelector = valueSelector;
-        const elementKeySelector = (element: T) => element.$key;
+        const elementKeySelector = keySelector;
 
         return new ListObservable(query, (observer: Observer<T[]>) => {
 

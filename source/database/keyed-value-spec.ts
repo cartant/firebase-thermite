@@ -9,7 +9,7 @@ import * as firebase from "firebase";
 
 import { expect } from "chai";
 import { fromKeyedValue, KeyedValue, toKeyedValue } from "./keyed-value";
-import { Snapshot, Value } from "./types";
+import { Value } from "./types";
 
 describe("database", () => {
 
