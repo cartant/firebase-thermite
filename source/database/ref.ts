@@ -7,17 +7,17 @@
 import { firebase } from "../firebase";
 import { PrimitiveValue, Query, Reference } from "./types";
 
-export function asRef(ref: Query | Reference): Reference {
+export function asRef(ref: Query | Reference | null | undefined): Reference | null {
 
-    return Boolean(ref) ? isRef(ref) ? ref : (ref as any).ref : ref;
+    return Boolean(ref) ? isRef(ref) ? ref : (ref as any).ref : (ref || null);
 }
 
-export function isQuery(ref: Query | Reference): boolean {
+export function isQuery(ref: Query | Reference | null | undefined): boolean {
 
     return Boolean(ref && typeof ref["set"] !== "function");
 }
 
-export function isRef(ref: Query | Reference): boolean {
+export function isRef(ref: Query | Reference | null | undefined): boolean {
 
     return Boolean(ref && typeof ref["set"] === "function");
 }

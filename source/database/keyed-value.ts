@@ -4,7 +4,7 @@
  * found in the LICENSE file at https://github.com/cartant/firebase-thermite
  */
 
-import { isPrimitiveValue, PrimitiveValue, Value } from "./types";
+import { CompositeValue, isPrimitiveValue, PrimitiveValue, Value } from "./types";
 
 export interface Keyed {
     readonly $key: string;
@@ -27,7 +27,7 @@ export function fromKeyedValue(keyedValue: KeyedValue): Value | null {
     }
 
     const { $key: key, ...kept } = keyedValue;
-    return kept;
+    return kept as CompositeValue;
 }
 
 export function isKeyedPrimitiveValue(keyedValue: KeyedValue): keyedValue is KeyedPrimitiveValue<PrimitiveValue> {

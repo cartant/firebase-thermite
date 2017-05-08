@@ -13,8 +13,8 @@ import { asRef } from "../../database/ref";
 import { Query, Reference, Snapshot } from "../../database/types";
 
 export interface MapEvent {
-    map?: { [key: string]: Snapshot };
-    snapshot: Snapshot;
+    map: { [key: string]: Snapshot } | null;
+    snapshot: Snapshot | null;
     type: "added" | "changed" | "loaded" | "removed";
 }
 
@@ -57,7 +57,7 @@ export class MapEventObservable<T> extends Observable<T> {
 
                     if (snapshot.exists()) {
                         snapshot.forEach((child) => {
-                            lastLoadedKey = child.key;
+                            lastLoadedKey = child.key as string;
                             return false;
                         });
                         hasLoaded = Boolean(snapshots[lastLoadedKey]);
@@ -73,7 +73,7 @@ export class MapEventObservable<T> extends Observable<T> {
                         if (onlyLoaded) {
                             observer.complete();
                         }
-                        snapshots = null;
+                        snapshots = {};
                     }
                 };
                 query.once("value", valueListener, errorListener);
@@ -106,7 +106,7 @@ export class MapEventObservable<T> extends Observable<T> {
                             if (onlyLoaded) {
                                 observer.complete();
                             }
-                            snapshots = null;
+                            snapshots = {};
                         }
                     }
                 };
@@ -170,7 +170,7 @@ export class MapEventObservable<T> extends Observable<T> {
         elementSelector: (snapshot: Snapshot) => T
     ): { [key: string]: T } {
 
-        return { ...map, [snapshot.key]: elementSelector(snapshot) };
+        return { ...map, [snapshot.key as string]: elementSelector(snapshot) };
     }
 
     static onChanged<T>(
@@ -179,7 +179,7 @@ export class MapEventObservable<T> extends Observable<T> {
         elementSelector: (snapshot: Snapshot) => T
     ): { [key: string]: T } {
 
-        return { ...map, [snapshot.key]: elementSelector(snapshot) };
+        return { ...map, [snapshot.key as string]: elementSelector(snapshot) };
     }
 
     static onLoaded<T>(
@@ -199,7 +199,7 @@ export class MapEventObservable<T> extends Observable<T> {
         snapshot: Snapshot
     ): { [key: string]: T } {
 
-        const { [snapshot.key]: removed, ...kept } = map;
+        const { [snapshot.key as string]: removed, ...kept } = map;
         return kept;
     }
 
@@ -218,7 +218,7 @@ export class MapEventObservable<T> extends Observable<T> {
 
     get ref(): Reference {
 
-        return asRef(this.query_);
+        return asRef(this.query_) as Reference;
     }
 
     lift<R>(operator: Operator<T, R>): Observable<R> {

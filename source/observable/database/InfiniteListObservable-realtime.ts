@@ -77,8 +77,12 @@ export function subscribeRealtime<T>(
                         .create(pageQuery, { added: true, loaded: true })
                         .scan((accumulator, event) => {
 
-                            let page: Page = accumulator.page || { elements: elementsSelector(event.list), index, lastKey };
+                            let page: Page;
                             if (event.type === "loaded") {
+                                if (!event.list) {
+                                    throw expectedListError();
+                                }
+                                page = { elements: elementsSelector(event.list), index, lastKey };
                                 page.elements.reverse();
                                 if (lastKey) {
                                     page.elements.shift();
@@ -86,6 +90,8 @@ export function subscribeRealtime<T>(
                                 if (page.elements.length > 0) {
                                     page.lastKey = queryKeySelector(page.elements[page.elements.length - 1]);
                                 }
+                            } else {
+                                page = accumulator.page;
                             }
                             return { event, index, page };
                         }, {} as { event: ListEvent, index: number, page: Page })
@@ -110,14 +116,20 @@ export function subscribeRealtime<T>(
                         .create(pageQuery, { added: true, loaded: true })
                         .scan((accumulator, event) => {
 
-                            let page: Page = accumulator.page || { elements: elementsSelector(event.list), index, lastKey };
+                            let page: Page;
                             if (event.type === "loaded") {
+                                if (!event.list) {
+                                    throw expectedListError();
+                                }
+                                page = { elements: elementsSelector(event.list), index, lastKey };
                                 if (lastKey) {
                                     page.elements.shift();
                                 }
                                 if (page.elements.length > 0) {
                                     page.lastKey = queryKeySelector(page.elements[page.elements.length - 1]);
                                 }
+                            } else {
+                                page = accumulator.page;
                             }
                             return { event, index, page };
                         }, {} as { event: ListEvent, index: number, page: Page })
@@ -135,20 +147,29 @@ export function subscribeRealtime<T>(
         const subscription = Observable
             .merge(pages, changes, removes)
             .scan((scanned, { event, index, page: eventPage }) => {
+
+                const { snapshot: eventSnapshot } = event;
+
                 switch (event.type) {
                 case "added":
+                    if (!eventPage) {
+                        throw expecteexpectedPageError();
+                    }
+                    if (!eventSnapshot) {
+                        throw expectedSnapshotError();
+                    }
                     const prevFound = !Boolean(event.prevKey) || Boolean(eventPage.elements.find(
                         (element: any) => elementKeySelector(element) === event.prevKey
                     ));
                     const elementFound = Boolean(eventPage.elements.find(
-                        (element: any) => elementKeySelector(element) === event.snapshot.key
+                        (element: any) => elementKeySelector(element) === eventSnapshot.key
                     ));
                     if (!prevFound || elementFound || (event.prevKey === eventPage.lastKey)) {
                         scanned.modified = false;
                     } else {
                         eventPage.elements = ListEventObservable.onAdded(
                             eventPage.elements,
-                            event.snapshot,
+                            eventSnapshot,
                             elementSelector,
                             elementKeySelector,
                             event.prevKey
@@ -157,10 +178,13 @@ export function subscribeRealtime<T>(
                     }
                     break;
                 case "changed":
+                    if (!eventSnapshot) {
+                        throw expectedSnapshotError();
+                    }
                     scanned.pages.forEach((page) => {
                         page.elements = ListEventObservable.onChanged(
                             page.elements,
-                            event.snapshot,
+                            eventSnapshot,
                             elementSelector,
                             elementKeySelector,
                             event.prevKey
@@ -169,6 +193,9 @@ export function subscribeRealtime<T>(
                     scanned.modified = true;
                     break;
                 case "loaded":
+                    if (!eventPage) {
+                        throw expecteexpectedPageError();
+                    }
                     let eventPageIndex = 0;
                     scanned.pages.forEach((page) => {
                         if (page.index < index) {
@@ -179,10 +206,13 @@ export function subscribeRealtime<T>(
                     scanned.modified = true;
                     break;
                 case "removed":
+                    if (!eventSnapshot) {
+                        throw expectedSnapshotError();
+                    }
                     scanned.pages.forEach((page) => {
                         page.elements = ListEventObservable.onRemoved(
                             page.elements,
-                            event.snapshot,
+                            eventSnapshot,
                             elementKeySelector
                         );
                     });
@@ -194,7 +224,7 @@ export function subscribeRealtime<T>(
                 return scanned;
             }, { pages: [], modified: true } as { pages: Page[], modified: boolean })
             .filter((scanned) => scanned.modified)
-            .map((scanned) => scanned.pages.reduce((list, page) => list.concat(page.elements), []))
+            .map((scanned) => scanned.pages.reduce((list, page) => list.concat(page.elements), [] as T[]))
             .subscribe(observer);
 
         return () => {
@@ -202,4 +232,19 @@ export function subscribeRealtime<T>(
             unsubscribed.next();
         };
     };
+}
+
+function expectedListError(): Error {
+
+    return new Error("Expected an event with a list.");
+}
+
+function expecteexpectedPageError(): Error {
+
+    return new Error("Expected an event with a page.");
+}
+
+function expectedSnapshotError(): Error {
+
+    return new Error("Expected an event with a snapshot.");
 }

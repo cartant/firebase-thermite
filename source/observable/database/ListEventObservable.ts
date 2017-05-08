@@ -13,9 +13,9 @@ import { asRef } from "../../database/ref";
 import { Query, Reference, Snapshot } from "../../database/types";
 
 export interface ListEvent {
-    list?: Snapshot[];
-    prevKey?: string;
-    snapshot?: Snapshot;
+    list: Snapshot[] | null;
+    prevKey: string | null;
+    snapshot: Snapshot | null;
     type: "added" | "changed" | "loaded" | "removed";
 }
 
@@ -51,7 +51,7 @@ export class ListEventObservable<T> extends Observable<T> {
             };
 
             const elementSelector = (snapshot: Snapshot) => snapshot;
-            const elementKeySelector = (snapshot: Snapshot) => snapshot.key;
+            const elementKeySelector = (snapshot: Snapshot) => snapshot.key as string;
 
             if (loaded) {
 
@@ -59,7 +59,7 @@ export class ListEventObservable<T> extends Observable<T> {
 
                     if (snapshot.exists()) {
                         snapshot.forEach((child) => {
-                            lastLoadedKey = child.key;
+                            lastLoadedKey = child.key as string;
                             return false;
                         });
                         hasLoaded = Boolean(snapshots.find((child) => child.key === lastLoadedKey));
@@ -76,7 +76,7 @@ export class ListEventObservable<T> extends Observable<T> {
                         if (onlyLoaded) {
                             observer.complete();
                         }
-                        snapshots = null;
+                        snapshots = [];
                     }
                 };
                 query.once("value", valueListener, errorListener);
@@ -90,7 +90,7 @@ export class ListEventObservable<T> extends Observable<T> {
                         if (added) {
                             observer.next({
                                 list: null,
-                                prevKey,
+                                prevKey: prevKey || null,
                                 snapshot,
                                 type: "added"
                             });
@@ -99,7 +99,13 @@ export class ListEventObservable<T> extends Observable<T> {
                             delete unlisteners["child_added"];
                         }
                     } else {
-                        snapshots = ListEventObservable.onAdded(snapshots, snapshot, elementSelector, elementKeySelector, prevKey);
+                        snapshots = ListEventObservable.onAdded(
+                            snapshots,
+                            snapshot,
+                            elementSelector,
+                            elementKeySelector,
+                            prevKey || null
+                        );
                         if (snapshot.key === lastLoadedKey) {
                             hasLoaded = true;
                             observer.next({
@@ -111,7 +117,7 @@ export class ListEventObservable<T> extends Observable<T> {
                             if (onlyLoaded) {
                                 observer.complete();
                             }
-                            snapshots = null;
+                            snapshots = [];
                         }
                     }
                 };
@@ -127,7 +133,7 @@ export class ListEventObservable<T> extends Observable<T> {
                         if (changed) {
                             observer.next({
                                 list: null,
-                                prevKey,
+                                prevKey: prevKey || null,
                                 snapshot,
                                 type: "changed"
                             });
@@ -136,7 +142,13 @@ export class ListEventObservable<T> extends Observable<T> {
                             delete unlisteners["child_changed"];
                         }
                     } else {
-                        snapshots = ListEventObservable.onChanged(snapshots, snapshot, elementSelector, elementKeySelector, prevKey);
+                        snapshots = ListEventObservable.onChanged(
+                            snapshots,
+                            snapshot,
+                            elementSelector,
+                            elementKeySelector,
+                            prevKey || null
+                        );
                     }
                 };
                 query.on("child_changed", changedListener, errorListener);
@@ -160,7 +172,11 @@ export class ListEventObservable<T> extends Observable<T> {
                             delete unlisteners["child_removed"];
                         }
                     } else {
-                        snapshots = ListEventObservable.onRemoved(snapshots, snapshot, elementKeySelector);
+                        snapshots = ListEventObservable.onRemoved(
+                            snapshots,
+                            snapshot,
+                            elementKeySelector
+                        );
                     }
                 };
                 query.on("child_removed", removedListener, errorListener);
@@ -176,7 +192,7 @@ export class ListEventObservable<T> extends Observable<T> {
         snapshot: Snapshot,
         elementSelector: (snapshot: Snapshot) => T,
         elementKeySelector: (e: T) => string,
-        prevKey: string
+        prevKey: string | null
     ): T[] {
 
         const added = elementSelector(snapshot);
@@ -195,7 +211,7 @@ export class ListEventObservable<T> extends Observable<T> {
             }
             return accumulator;
 
-        }, []);
+        }, [] as T[]);
     }
 
     static onChanged<T>(
@@ -203,7 +219,7 @@ export class ListEventObservable<T> extends Observable<T> {
         snapshot: Snapshot,
         elementSelector: (snapshot: Snapshot) => T,
         elementKeySelector: (e: T) => string,
-        prevKey: string
+        prevKey: string | null
     ): T[] {
 
         const changed = elementSelector(snapshot);
@@ -225,7 +241,7 @@ export class ListEventObservable<T> extends Observable<T> {
             }
             return accumulator;
 
-        }, []);
+        }, [] as T[]);
     }
 
     static onLoaded<T>(
@@ -261,7 +277,7 @@ export class ListEventObservable<T> extends Observable<T> {
 
     get ref(): Reference {
 
-        return asRef(this.query_);
+        return asRef(this.query_) as Reference;
     }
 
     lift<R>(operator: Operator<T, R>): Observable<R> {

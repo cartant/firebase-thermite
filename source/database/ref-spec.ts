@@ -36,7 +36,7 @@ describe("database", () => {
             it("should support nulls", () => {
 
                 expect(asRef(null)).to.equal(null);
-                expect(asRef(undefined)).to.equal(undefined);
+                expect(asRef(undefined)).to.equal(null);
             });
         });
 

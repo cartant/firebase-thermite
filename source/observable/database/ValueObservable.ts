@@ -45,7 +45,7 @@ export class ValueObservable<T> extends Observable<T> {
 
     get ref(): Reference {
 
-        return asRef(this.query_);
+        return asRef(this.query_) as Reference;
     }
 
     lift<R>(operator: Operator<T, R>): Observable<R> {

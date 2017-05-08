@@ -34,15 +34,27 @@ export class MapObservable<T> extends Observable<T> {
                     switch (type) {
 
                     case "added":
+                        if (!snapshot) {
+                            throw expectedSnapshotError();
+                        }
                         return MapEventObservable.onAdded(properties, snapshot, elementSelector);
 
                     case "changed":
+                        if (!snapshot) {
+                            throw expectedSnapshotError();
+                        }
                         return MapEventObservable.onChanged(properties, snapshot, elementSelector);
 
                     case "loaded":
+                        if (!map) {
+                            throw expectedMapError();
+                        }
                         return MapEventObservable.onLoaded(map, elementSelector);
 
                     case "removed":
+                        if (!snapshot) {
+                            throw expectedSnapshotError();
+                        }
                         return MapEventObservable.onRemoved(properties, snapshot);
 
                     default:
@@ -69,7 +81,7 @@ export class MapObservable<T> extends Observable<T> {
 
     get ref(): Reference {
 
-        return asRef(this.query_);
+        return asRef(this.query_) as Reference;
     }
 
     lift<R>(operator: Operator<T, R>): Observable<R> {
@@ -79,4 +91,14 @@ export class MapObservable<T> extends Observable<T> {
         observable.source = this;
         return observable;
     }
+}
+
+function expectedMapError(): Error {
+
+    return new Error("Expected an event with a map.");
+}
+
+function expectedSnapshotError(): Error {
+
+    return new Error("Expected an event with a snapshot.");
 }

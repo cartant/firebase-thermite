@@ -90,7 +90,7 @@ export class InfiniteListObservable<T> extends Observable<T> {
 
     get ref(): Reference {
 
-        return asRef(this.ref_);
+        return asRef(this.ref_) as Reference;
     }
 
     lift<R>(operator: Operator<T, R>): Observable<R> {

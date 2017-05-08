@@ -76,9 +76,9 @@ export class ThermiteDatabase implements firebase.database.Database {
     infiniteList(
         ref: string | Reference,
         notifier: Observable<any>,
-        valueSelector: (snapshot: Snapshot) => any = undefined,
-        keySelector: (value: any) => string = undefined,
-        options: InfiniteListOptions = {}
+        valueSelector?: (snapshot: Snapshot) => any,
+        keySelector?: (value: any) => string,
+        options?: InfiniteListOptions
     ): InfiniteListObservable<any> {
 
         if (typeof valueSelector === "object") {
@@ -109,7 +109,7 @@ export class ThermiteDatabase implements firebase.database.Database {
 
     key(): string {
 
-        return this.database_.ref().push(null).key;
+        return this.database_.ref().push(null).key as string;
     }
 
     list(
@@ -129,8 +129,8 @@ export class ThermiteDatabase implements firebase.database.Database {
 
     list(
         query: string | Query,
-        valueSelector: (snapshot: Snapshot) => any = null,
-        keySelector: (value: any) => string = null
+        valueSelector?: (snapshot: Snapshot) => any,
+        keySelector?: (value: any) => string
     ): ListObservable<any> {
 
         return this.observeOn(ListObservable.create(
@@ -151,7 +151,7 @@ export class ThermiteDatabase implements firebase.database.Database {
 
     map(
         query: string | Query,
-        valueSelector: (snapshot: Snapshot) => any = null
+        valueSelector?: (snapshot: Snapshot) => any
     ): MapObservable<any> {
 
         return this.observeOn(MapObservable.create(
@@ -186,7 +186,7 @@ export class ThermiteDatabase implements firebase.database.Database {
 
     value(
         query: string | Query,
-        valueSelector: (snapshot: Snapshot) => any = null
+        valueSelector?: (snapshot: Snapshot) => any
     ): ValueObservable<any> {
 
         return this.observeOn(ValueObservable.create(

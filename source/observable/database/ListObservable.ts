@@ -37,15 +37,27 @@ export class ListObservable<T> extends Observable<T> {
                     switch (type) {
 
                     case "added":
+                        if (!snapshot) {
+                            throw expectedSnapshotError();
+                        }
                         return ListEventObservable.onAdded<T>(elements, snapshot, elementSelector, elementKeySelector, prevKey);
 
                     case "changed":
+                        if (!snapshot) {
+                            throw expectedSnapshotError();
+                        }
                         return ListEventObservable.onChanged<T>(elements, snapshot, elementSelector, elementKeySelector, prevKey);
 
                     case "loaded":
+                        if (!list) {
+                            throw expectedListError();
+                        }
                         return ListEventObservable.onLoaded<T>(list, elementSelector);
 
                     case "removed":
+                        if (!snapshot) {
+                            throw expectedSnapshotError();
+                        }
                         return ListEventObservable.onRemoved<T>(elements, snapshot, elementKeySelector);
 
                     default:
@@ -72,7 +84,7 @@ export class ListObservable<T> extends Observable<T> {
 
     get ref(): Reference {
 
-        return asRef(this.query_);
+        return asRef(this.query_) as Reference;
     }
 
     lift<R>(operator: Operator<T, R>): Observable<R> {
@@ -82,4 +94,14 @@ export class ListObservable<T> extends Observable<T> {
         observable.source = this;
         return observable;
     }
+}
+
+function expectedListError(): Error {
+
+    return new Error("Expected an event with a list.");
+}
+
+function expectedSnapshotError(): Error {
+
+    return new Error("Expected an event with a snapshot.");
 }

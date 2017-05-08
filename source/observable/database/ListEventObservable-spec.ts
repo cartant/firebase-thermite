@@ -8,7 +8,7 @@
 import { expect } from "chai";
 import { timeout } from "../../constants-spec";
 import { expectNoListeners } from "../../database/expect-spec";
-import { Reference } from "../../database/types";
+import { Reference, Snapshot } from "../../database/types";
 import { firebase } from "../../firebase";
 import { app } from "../../firebase-spec";
 import { ListEventObservable } from "./ListEventObservable";
@@ -53,7 +53,9 @@ describe("observable/database", function (): void {
                     expect(event).to.have.property("type", "loaded");
                     expect(event.list).to.be.an("array");
                     expect(event.list).to.have.length(3);
-                    expect(event.list.map((snapshot) => snapshot.key)).to.deep.equal(["a", "b", "c"]);
+
+                    const list = event.list as Snapshot[];
+                    expect(list.map((snapshot) => snapshot.key)).to.deep.equal(["a", "b", "c"]);
                     expectNoListeners(sequenceRef);
                 });
         });

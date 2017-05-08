@@ -14,7 +14,7 @@ export function selectKey(value: KeyedValue): string {
 
 export function selectKeyedValue(snapshot: Snapshot): KeyedValue {
 
-    return toKeyedValue(snapshot.val(), snapshot.ref.key);
+    return toKeyedValue(snapshot.val(), snapshot.ref.key as string);
 }
 
 export function selectValue(snapshot: Snapshot): Value | null {

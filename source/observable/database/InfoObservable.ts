@@ -14,7 +14,7 @@ import { firebase } from "../../firebase";
 
 export interface Info {
     readonly connected: boolean;
-    readonly serverTime: Date;
+    readonly serverTime?: Date;
     readonly serverTimeOffset?: number;
 }
 
@@ -28,7 +28,7 @@ class InfoValue implements Info {
         Object.assign(this, snapshot.val());
     }
 
-    get serverTime(): Date {
+    get serverTime(): Date | undefined {
 
         // http://stackoverflow.com/a/23173251/6680611
 
