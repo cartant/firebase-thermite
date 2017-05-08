@@ -17,6 +17,7 @@ describe("database", () => {
         function mockSnapshot(key: string, value: any): Snapshot {
 
             const anything: any = {
+                key,
                 ref: { key },
                 val(): any { return value; }
             };
