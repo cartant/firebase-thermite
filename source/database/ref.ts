@@ -96,7 +96,7 @@ export function toQuery(
 
 export interface ValueKeyOption {
     key: string;
-    value: PrimitiveValue;
+    value: PrimitiveValue | null;
 }
 
 export interface QueryOptions {
@@ -104,9 +104,9 @@ export interface QueryOptions {
     orderByKey?: boolean;
     orderByPriority?: boolean;
     orderByValue?: boolean;
-    endAt?: null | PrimitiveValue | ValueKeyOption;
-    equalTo?: null | PrimitiveValue | ValueKeyOption;
+    endAt?: PrimitiveValue | ValueKeyOption | null;
+    equalTo?: PrimitiveValue | ValueKeyOption | null;
     limitToFirst?: number;
     limitToLast?: number;
-    startAt?: null | PrimitiveValue | ValueKeyOption;
+    startAt?: PrimitiveValue | ValueKeyOption | null;
 }
