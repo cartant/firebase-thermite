@@ -1,4 +1,3 @@
-import ignore from "rollup-plugin-ignore";
 import nodeResolve from "rollup-plugin-node-resolve";
 import { external, globals } from "./rollup-constants";
 
@@ -21,8 +20,5 @@ export default {
         var FIREBASE_USER_EMAIL = "${process.env.FIREBASE_USER_EMAIL}";
         var FIREBASE_USER_PASSWORD = "${process.env.FIREBASE_USER_PASSWORD}";
     `,
-    plugins: [
-        ignore(["firebase"]),
-        nodeResolve({})
-    ]
+    plugins: [nodeResolve({})]
 }
