@@ -12,7 +12,7 @@
 
 ### Why might I need it?
 
-You might need it if want to use RxJS observables and the official Angular library for Firebase - [AngularFire2](https://github.com/angular/angularfire2) - does not suit your requirements.
+You might need it if you want to use RxJS observables and the official Angular library for Firebase - [AngularFire2](https://github.com/angular/angularfire2) - does not suit your requirements.
 
 <a name="differences"></a>
 
