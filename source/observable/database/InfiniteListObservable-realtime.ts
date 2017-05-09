@@ -151,6 +151,7 @@ export function subscribeRealtime<T>(
                 const { snapshot: eventSnapshot } = event;
 
                 switch (event.type) {
+
                 case "added":
                     if (!eventPage) {
                         throw expecteexpectedPageError();
@@ -177,6 +178,7 @@ export function subscribeRealtime<T>(
                         scanned.modified = true;
                     }
                     break;
+
                 case "changed":
                     if (!eventSnapshot) {
                         throw expectedSnapshotError();
@@ -192,6 +194,7 @@ export function subscribeRealtime<T>(
                     });
                     scanned.modified = true;
                     break;
+
                 case "loaded":
                     if (!eventPage) {
                         throw expecteexpectedPageError();
@@ -205,6 +208,7 @@ export function subscribeRealtime<T>(
                     scanned.pages.splice(eventPageIndex, 0, eventPage);
                     scanned.modified = true;
                     break;
+
                 case "removed":
                     if (!eventSnapshot) {
                         throw expectedSnapshotError();
@@ -218,10 +222,12 @@ export function subscribeRealtime<T>(
                     });
                     scanned.modified = true;
                     break;
+
                 default:
                     throw new Error(`Unexpected event type (${event.type}).`);
                 }
                 return scanned;
+
             }, { pages: [], modified: true } as { pages: Page[], modified: boolean })
             .filter((scanned) => scanned.modified)
             .map((scanned) => scanned.pages.reduce((list, page) => list.concat(page.elements), [] as T[]))

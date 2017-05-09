@@ -48,6 +48,7 @@ export function subscribeNonRealtime<T>(
         let pages: Observable<Page>;
 
         if (reverse) {
+
             pages = Observable
                 .zip(notifier, Observable.defer(() => lastKeys))
                 .concatMap(([unused, lastKey], index) => ListObservable
@@ -57,6 +58,7 @@ export function subscribeNonRealtime<T>(
                         limitToLast: lastKey ? (pageSize + 1) : pageSize
                     }), valueSelector, keySelector)
                     .map((elements) => {
+
                         const page = { elements, index, lastKey };
                         page.elements.reverse();
                         if (lastKey) {
@@ -83,6 +85,7 @@ export function subscribeNonRealtime<T>(
                         startAt: lastKey
                     }), valueSelector, keySelector)
                     .map((elements) => {
+
                         const page = { elements, index, lastKey };
                         if (lastKey) {
                             page.elements.shift();
