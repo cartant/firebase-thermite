@@ -64,7 +64,6 @@
     "dist:copy": "node scripts/pack.js && cpy bundles/firebase-thermite.* dist/bundles/ && cpy CHANGELOG.md LICENSE README.md dist/ && cpy **/package.json ../dist/ --cwd=source --parents",
     "dist:uglify": "uglifyjs -c --comments /license/ -m --screw-ie8 -o bundles/firebase-thermite.min.umd.js bundles/firebase-thermite.umd.js",
     "lint": "tslint --project tsconfig.json --type-check source/**/*.ts",
-    "prepublish": "npm run test && npm run dist",
     "test": "npm run lint && npm run test:build && karma start",
     "test:build": "npm run test:clean && tsc -p tsconfig.json && env-cmd .env rollup -c rollup-config-test.js",
     "test:clean": "rimraf build && rimraf bundles/firebase-thermite-test.* && mkdirp bundles && touch .env"
