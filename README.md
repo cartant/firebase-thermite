@@ -33,3 +33,7 @@ You might need it if you want to use RxJS observables and the official Angular l
 ## Usage
 
 At the moment, the tests will have to serve as the usage documentation.
+
+## Testing
+
+To run the tests, you will need to provide several environment variables via a `.env` file. See [`constants-spec.ts`](https://github.com/cartant/firebase-thermite/blob/master/source/constants-spec.ts) and [`env-cmd`](https://www.npmjs.com/package/env-cmd) - which is used to [include the environment variables in the bundle](https://github.com/cartant/firebase-thermite/blob/v1.0.1/package.json#L68).
