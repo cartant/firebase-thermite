@@ -11,4 +11,3 @@ export * from "./geofire";
 export * from "./messaging";
 export * from "./observable";
 export * from "./storage";
-export * from "./thenable";

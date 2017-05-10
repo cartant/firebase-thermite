@@ -4,7 +4,6 @@
  * found in the LICENSE file at https://github.com/cartant/firebase-thermite
  */
 
-import "./add/observable/fromThenable-spec";
 import "./app/app-spec";
 import "./auth/auth-spec";
 import "./database/database-spec";
@@ -21,4 +20,3 @@ import "./observable/database/MapEventObservable-spec";
 import "./observable/database/MapObservable-spec";
 import "./observable/database/ValueObservable-spec";
 import "./storage/storage-spec";
-import "./thenable-spec";

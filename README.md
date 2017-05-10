@@ -26,7 +26,6 @@ You might need it if you want to use RxJS observables and the official Angular l
 * It includes database observables that emit `loaded`, `added`, `changed` and `removed` events.
 * It does not implement mutation methods on database observables - use the `ref` itself, instead.
 * It does not implement declarative queries that contain `Subject` components - use a `Subject` that emits a declarative query and use [`toQuery`](https://github.com/cartant/firebase-thermite/blob/master/source/database/ref.ts) and create an observable within a `switchMap`, instead.
-* It includes converters for `Thenable` instances. (Although, these [will become redundant](https://github.com/ReactiveX/rxjs/pull/2505) in RxJS 5.4.)
 * It includes an infinite list database observable.
 * It includes a map database observable.
 * The Angular modules are split into a separate library: [`firebase-thermite-ng`](https://github.com/cartant/firebase-thermite-ng)
