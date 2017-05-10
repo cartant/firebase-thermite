@@ -109,7 +109,7 @@ export class ThermiteDatabase implements firebase.database.Database {
 
     key(): string {
 
-        return this.database_.ref().push(null).key as string;
+        return this.database_.ref().push().key as string;
     }
 
     list(
