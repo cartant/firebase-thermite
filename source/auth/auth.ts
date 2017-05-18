@@ -53,11 +53,6 @@ export class ThermiteAuth implements firebase.auth.Auth {
         return this.auth_.confirmPasswordReset(code, password);
     }
 
-    createCustomToken(uid: string, claims?: Object | null): string {
-
-        return this.auth_.createCustomToken(uid, claims);
-    }
-
     createUserWithEmailAndPassword(email: string, password: string): firebase.Promise<any> {
 
         return this.auth_.createUserWithEmailAndPassword(email, password);
@@ -82,9 +77,23 @@ export class ThermiteAuth implements firebase.auth.Auth {
         return this.auth_.onAuthStateChanged(nextOrObserver, error, completed);
     }
 
+    onIdTokenChanged(
+        nextOrObserver: Object,
+        error?: (error: firebase.auth.Error) => any,
+        completed?: () => any
+    ): () => any {
+
+        return this.auth_.onIdTokenChanged(nextOrObserver, error, completed);
+    }
+
     sendPasswordResetEmail(email: string): firebase.Promise<any> {
 
         return this.auth_.sendPasswordResetEmail(email);
+    }
+
+    signInAndRetrieveDataWithCredential(credential: firebase.auth.AuthCredential): firebase.Promise<any> {
+
+        return this.auth_.signInAndRetrieveDataWithCredential(credential);
     }
 
     signInAnonymously(): firebase.Promise<any> {
@@ -107,6 +116,14 @@ export class ThermiteAuth implements firebase.auth.Auth {
         return this.auth_.signInWithEmailAndPassword(email, password);
     }
 
+    signInWithPhoneNumber(
+        phoneNumber: string,
+        applicationVerifier: firebase.auth.ApplicationVerifier
+    ): firebase.Promise<any> {
+
+        return this.auth_.signInWithPhoneNumber(phoneNumber, applicationVerifier);
+    }
+
     signInWithPopup(provider: firebase.auth.AuthProvider): firebase.Promise<any> {
 
         return this.auth_.signInWithPopup(provider);
@@ -120,11 +137,6 @@ export class ThermiteAuth implements firebase.auth.Auth {
     signOut(): firebase.Promise<any> {
 
         return this.auth_.signOut();
-    }
-
-    verifyIdToken(idToken: string): firebase.Promise<any> {
-
-        return this.auth_.verifyIdToken(idToken);
     }
 
     verifyPasswordResetCode(code: string): firebase.Promise<any> {
