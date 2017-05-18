@@ -12,6 +12,7 @@ import "./database/ref-spec";
 import "./database/selectors-spec";
 import "./messaging/messaging-spec";
 import "./observable/auth/AuthStateObservable-spec";
+import "./observable/auth/IdTokenObservable-spec";
 import "./observable/database/InfiniteListObservable-spec";
 import "./observable/database/InfoObservable-spec";
 import "./observable/database/ListEventObservable-spec";

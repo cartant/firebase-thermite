@@ -8,6 +8,7 @@ import { Observable } from "rxjs/Observable";
 import { Scheduler } from "rxjs/Scheduler";
 import { firebase } from "../firebase";
 import { AuthStateObservable } from "../observable/auth";
+import { IdTokenObservable } from "../observable/auth";
 
 import "rxjs/add/operator/observeOn";
 
@@ -36,6 +37,11 @@ export class ThermiteAuth implements firebase.auth.Auth {
     get currentUser(): firebase.User | null {
 
         return this.auth_.currentUser;
+    }
+
+    get idToken(): Observable<firebase.User> {
+
+        return this.observeOn(IdTokenObservable.create(this.auth_));
     }
 
     applyActionCode(code: string): firebase.Promise<any> {

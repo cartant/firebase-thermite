@@ -5,3 +5,4 @@
  */
 
 export * from "./AuthStateObservable";
+export * from "./IdTokenObservable";

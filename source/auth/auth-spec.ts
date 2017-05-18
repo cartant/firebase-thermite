@@ -26,9 +26,19 @@ describe("auth", () => {
             expect(thermiteAuth).to.have.property("authState");
         });
 
+        it("should expose idToken", () => {
+
+            expect(thermiteAuth).to.have.property("idToken");
+        });
+
         it("should implement onAuthStateChanged", () => {
 
             expect(thermiteAuth).to.respondTo("onAuthStateChanged");
+        });
+
+        it("should implement onIdTokenChanged", () => {
+
+            expect(thermiteAuth).to.respondTo("onIdTokenChanged");
         });
     });
 });
