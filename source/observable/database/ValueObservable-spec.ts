@@ -29,9 +29,6 @@ describe("observable/database", function (): void {
         let compositeRef: Reference;
         let primitiveRef: Reference;
 
-        /*tslint:disable-next-line:no-invalid-this */
-        this.timeout(timeout);
-
         beforeEach(() => {
 
             compositeRef = app.database().ref("temp/composite");
