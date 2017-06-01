@@ -25,6 +25,7 @@
     "karma-spec-reporter": "^0.0.31",
     "mkdirp": "^0.5.1",
     "mocha": "^3.2.0",
+    "preprocess": "^3.1.0",
     "rimraf": "^2.6.1",
     "rollup": "^0.41.6",
     "rollup-plugin-node-resolve": "^3.0.0",
@@ -33,7 +34,8 @@
     "tslib": "^1.6.1",
     "tslint": "^5.1.0",
     "typescript": "^2.2.2",
-    "uglify-js": "^3.0.10"
+    "uglify-js": "^3.0.10",
+    "yargs": "^8.0.0"
   },
   "homepage": "https://github.com/cartant/firebase-thermite",
   "jsnext:main": "./dist/index.js",
