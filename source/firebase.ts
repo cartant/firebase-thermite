@@ -4,5 +4,6 @@
  * found in the LICENSE file at https://github.com/cartant/firebase-thermite
  */
 
-import * as _firebase from "firebase";
-export type firebase = typeof _firebase;
+import * as firebase from "firebase/app";
+type FirebasePromise<T> = firebase.Promise<T>;
+export { firebase, FirebasePromise };

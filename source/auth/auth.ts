@@ -6,7 +6,7 @@
 
 import { Observable } from "rxjs/Observable";
 import { Scheduler } from "rxjs/Scheduler";
-import { firebase } from "../firebase";
+import { firebase, FirebasePromise } from "../firebase";
 import { AuthStateObservable } from "../observable/auth";
 import { IdTokenObservable } from "../observable/auth";
 
@@ -44,32 +44,32 @@ export class ThermiteAuth implements firebase.auth.Auth {
         return this.observeOn(IdTokenObservable.create(this.auth_));
     }
 
-    applyActionCode(code: string): firebase.Promise<any> {
+    applyActionCode(code: string): FirebasePromise<any> {
 
         return this.auth_.applyActionCode(code);
     }
 
-    checkActionCode(code: string): firebase.Promise<any> {
+    checkActionCode(code: string): FirebasePromise<any> {
 
         return this.auth_.checkActionCode(code);
     }
 
-    confirmPasswordReset(code: string, password: string): firebase.Promise<any> {
+    confirmPasswordReset(code: string, password: string): FirebasePromise<any> {
 
         return this.auth_.confirmPasswordReset(code, password);
     }
 
-    createUserWithEmailAndPassword(email: string, password: string): firebase.Promise<any> {
+    createUserWithEmailAndPassword(email: string, password: string): FirebasePromise<any> {
 
         return this.auth_.createUserWithEmailAndPassword(email, password);
     }
 
-    fetchProvidersForEmail(email: string): firebase.Promise<any> {
+    fetchProvidersForEmail(email: string): FirebasePromise<any> {
 
         return this.auth_.fetchProvidersForEmail(email);
     }
 
-    getRedirectResult(): firebase.Promise<any> {
+    getRedirectResult(): FirebasePromise<any> {
 
         return this.auth_.getRedirectResult();
     }
@@ -92,32 +92,32 @@ export class ThermiteAuth implements firebase.auth.Auth {
         return this.auth_.onIdTokenChanged(nextOrObserver, error, completed);
     }
 
-    sendPasswordResetEmail(email: string): firebase.Promise<any> {
+    sendPasswordResetEmail(email: string): FirebasePromise<any> {
 
         return this.auth_.sendPasswordResetEmail(email);
     }
 
-    signInAndRetrieveDataWithCredential(credential: firebase.auth.AuthCredential): firebase.Promise<any> {
+    signInAndRetrieveDataWithCredential(credential: firebase.auth.AuthCredential): FirebasePromise<any> {
 
         return this.auth_.signInAndRetrieveDataWithCredential(credential);
     }
 
-    signInAnonymously(): firebase.Promise<any> {
+    signInAnonymously(): FirebasePromise<any> {
 
         return this.auth_.signInAnonymously();
     }
 
-    signInWithCredential(credential: firebase.auth.AuthCredential): firebase.Promise<any> {
+    signInWithCredential(credential: firebase.auth.AuthCredential): FirebasePromise<any> {
 
         return this.auth_.signInWithCredential(credential);
     }
 
-    signInWithCustomToken(token: string): firebase.Promise<any> {
+    signInWithCustomToken(token: string): FirebasePromise<any> {
 
         return this.auth_.signInWithCustomToken(token);
     }
 
-    signInWithEmailAndPassword(email: string, password: string): firebase.Promise<any> {
+    signInWithEmailAndPassword(email: string, password: string): FirebasePromise<any> {
 
         return this.auth_.signInWithEmailAndPassword(email, password);
     }
@@ -125,27 +125,27 @@ export class ThermiteAuth implements firebase.auth.Auth {
     signInWithPhoneNumber(
         phoneNumber: string,
         applicationVerifier: firebase.auth.ApplicationVerifier
-    ): firebase.Promise<any> {
+    ): FirebasePromise<any> {
 
         return this.auth_.signInWithPhoneNumber(phoneNumber, applicationVerifier);
     }
 
-    signInWithPopup(provider: firebase.auth.AuthProvider): firebase.Promise<any> {
+    signInWithPopup(provider: firebase.auth.AuthProvider): FirebasePromise<any> {
 
         return this.auth_.signInWithPopup(provider);
     }
 
-    signInWithRedirect(provider: firebase.auth.AuthProvider): firebase.Promise<any> {
+    signInWithRedirect(provider: firebase.auth.AuthProvider): FirebasePromise<any> {
 
         return this.auth_.signInWithRedirect(provider);
     }
 
-    signOut(): firebase.Promise<any> {
+    signOut(): FirebasePromise<any> {
 
         return this.auth_.signOut();
     }
 
-    verifyPasswordResetCode(code: string): firebase.Promise<any> {
+    verifyPasswordResetCode(code: string): FirebasePromise<any> {
 
         return this.auth_.verifyPasswordResetCode(code);
     }

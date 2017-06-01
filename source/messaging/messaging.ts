@@ -6,7 +6,7 @@
 
 import { Observable } from "rxjs/Observable";
 import { Scheduler } from "rxjs/Scheduler";
-import { firebase } from "../firebase";
+import { firebase, FirebasePromise } from "../firebase";
 
 import "rxjs/add/operator/observeOn";
 
@@ -27,12 +27,12 @@ export class ThermiteMessaging implements firebase.messaging.Messaging {
         return this.app_;
     }
 
-    deleteToken(token: string): firebase.Promise<any> | null {
+    deleteToken(token: string): FirebasePromise<any> | null {
 
         return this.messaging_.deleteToken(token);
     }
 
-    getToken(): firebase.Promise<any> | null {
+    getToken(): FirebasePromise<any> | null {
 
         return this.messaging_.getToken();
     }
@@ -47,7 +47,7 @@ export class ThermiteMessaging implements firebase.messaging.Messaging {
         return this.messaging_.onTokenRefresh(nextOrObserver);
     }
 
-    requestPermission(): firebase.Promise<any> | null {
+    requestPermission(): FirebasePromise<any> | null {
 
         return this.messaging_.requestPermission();
     }
