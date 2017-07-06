@@ -68,7 +68,7 @@ export class MapObservable<T> extends Observable<T> {
 
     constructor(
         private query_: Query,
-        subscribe?: <R>(subscriber: Subscriber<R>
+        subscribe?: (subscriber: Subscriber<T>
     ) => TeardownLogic) {
 
         super(subscribe);

@@ -54,7 +54,7 @@ export class InfoObservable<T> extends Observable<T> {
         });
     }
 
-    constructor(subscribe?: <R>(subscriber: Subscriber<R>) => TeardownLogic) {
+    constructor(subscribe?: (subscriber: Subscriber<T>) => TeardownLogic) {
 
         super(subscribe);
     }

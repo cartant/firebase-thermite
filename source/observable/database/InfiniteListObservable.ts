@@ -77,7 +77,7 @@ export class InfiniteListObservable<T> extends Observable<T> {
 
     constructor(
         private ref_: Reference,
-        subscribe?: <R>(subscriber: Subscriber<R>) => TeardownLogic
+        subscribe?: (subscriber: Subscriber<T>) => TeardownLogic
     ) {
 
         super(subscribe);

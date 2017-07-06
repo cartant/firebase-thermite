@@ -264,7 +264,7 @@ export class ListEventObservable<T> extends Observable<T> {
 
     constructor(
         private query_: Query,
-        subscribe?: <R>(subscriber: Subscriber<R>) => TeardownLogic
+        subscribe?: (subscriber: Subscriber<T>) => TeardownLogic
     ) {
 
         super(subscribe);
