@@ -14,6 +14,11 @@ export type Query = firebase.database.Query;
 export type Reference = firebase.database.Reference;
 export type Snapshot = firebase.database.DataSnapshot;
 
+export function isCompositeValue(value: Value): value is CompositeValue {
+
+    return (value !== null) && (value !== undefined) && !isPrimitiveValue(value);
+}
+
 export function isPrimitiveValue(value: Value): value is PrimitiveValue {
 
     return (/boolean|number|string/).test(typeof value);
