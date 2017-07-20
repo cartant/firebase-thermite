@@ -10,7 +10,7 @@
 
 `firebase-thermite` is a library of RxJS observables for Firebase.
 
-### Why might I need it?
+### Why might you need it?
 
 You might need it if you want to use RxJS observables and the official Angular library for Firebase - [AngularFire2](https://github.com/angular/angularfire2) - does not suit your requirements.
 
