@@ -19,7 +19,7 @@ You might need it if you want to use RxJS observables and the official Angular l
 ### How does it differ from AngularFire2?
 
 * It does not have a dependency on Angular.
-* It has a type information-only dependency on `firebase`, so it can be used with `firebase` and with `firebase-admin`.
+* It has a type information-only dependency on `firebase`, so it can be used with `firebase` and with `firebase-admin`. <sup>*</sup>
 * Its database observables emit appropriately typed values - rather than values typed as `any`.
 * Its database observables support value selectors.
 * Its database list observables support key selectors.
@@ -29,6 +29,8 @@ You might need it if you want to use RxJS observables and the official Angular l
 * It includes an infinite list database observable.
 * It includes a map database observable.
 * The Angular modules are split into a separate library: [`firebase-thermite-ng`](https://github.com/cartant/firebase-thermite-ng)
+
+<sup>*</sup> Actually, this is no longer the case. In recent releases, the typings in `firebase` and `firebase-admin` have diverged. And adding some preprocessing to account for the differences (similar to what's in [`firebase-nightlight`](https://github.com/cartant/firebase-nightlight)) is on my TODO list.
 
 ## Usage
 
