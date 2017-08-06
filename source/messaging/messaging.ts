@@ -37,12 +37,16 @@ export class ThermiteMessaging implements firebase.messaging.Messaging {
         return this.messaging_.getToken();
     }
 
-    onMessage(nextOrObserver: Object): () => any {
+    onMessage(
+        nextOrObserver: firebase.Observer<any, any> | ((message: Object) => any)
+    ): () => any {
 
         return this.messaging_.onMessage(nextOrObserver);
     }
 
-    onTokenRefresh(nextOrObserver: Object): () => any {
+    onTokenRefresh(
+        nextOrObserver: firebase.Observer<any, any> | ((token: Object) => any)
+    ): () => any {
 
         return this.messaging_.onTokenRefresh(nextOrObserver);
     }

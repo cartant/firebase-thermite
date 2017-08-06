@@ -75,7 +75,7 @@ export class ThermiteAuth implements firebase.auth.Auth {
     }
 
     onAuthStateChanged(
-        nextOrObserver: Object,
+        nextOrObserver: firebase.Observer<any, any> | ((user: firebase.User | null) => any),
         error?: (error: firebase.auth.Error) => any,
         completed?: () => any
     ): () => any {
@@ -84,7 +84,7 @@ export class ThermiteAuth implements firebase.auth.Auth {
     }
 
     onIdTokenChanged(
-        nextOrObserver: Object,
+        nextOrObserver: firebase.Observer<any, any> | ((user: firebase.User | null) => any),
         error?: (error: firebase.auth.Error) => any,
         completed?: () => any
     ): () => any {
@@ -95,6 +95,11 @@ export class ThermiteAuth implements firebase.auth.Auth {
     sendPasswordResetEmail(email: string): FirebasePromise<any> {
 
         return this.auth_.sendPasswordResetEmail(email);
+    }
+
+    setPersistence(persistence: firebase.auth.Auth.Persistence): FirebasePromise<any> {
+
+        return this.auth_.setPersistence(persistence);
     }
 
     signInAndRetrieveDataWithCredential(credential: firebase.auth.AuthCredential): FirebasePromise<any> {
