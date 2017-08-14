@@ -27,7 +27,7 @@
     "mocha": "^3.2.0",
     "preprocess": "^3.1.0",
     "rimraf": "^2.6.1",
-    "rollup": "^0.45.0",
+    "rollup": "^0.47.0",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rxjs": "^5.4.2",
     "rxjs-tslint-rules": "^2.0.0",
