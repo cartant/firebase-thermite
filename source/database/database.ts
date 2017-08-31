@@ -76,9 +76,9 @@ export class ThermiteDatabase implements firebase.database.Database {
     infiniteList(
         ref: string | Reference,
         notifier: Observable<any>,
-        valueSelector?: (snapshot: Snapshot) => any,
-        keySelector?: (value: any) => string,
-        options?: InfiniteListOptions
+        valueSelector?: any,
+        keySelector?: any,
+        options?: any
     ): InfiniteListObservable<any> {
 
         if (typeof valueSelector === "object") {
@@ -94,8 +94,8 @@ export class ThermiteDatabase implements firebase.database.Database {
         return this.observeOn(InfiniteListObservable.create(
             (typeof ref === "string") ? this.ref(ref) : ref,
             notifier,
-            (valueSelector as any) || (selectKeyedValue as any),
-            (keySelector as any) || (selectKey as any),
+            valueSelector || selectKeyedValue as any,
+            keySelector || selectKey as any,
             options
         )) as InfiniteListObservable<any>;
     }

@@ -52,7 +52,7 @@ describe("observable/database", function (): void {
                     expect(event).to.have.property("type", "loaded");
                     expect(event.map).to.be.an("object");
 
-                    const keys = Object.keys(event.map);
+                    const keys = Object.keys(event.map!);
                     keys.sort();
 
                     expect(keys).to.have.length(3);
