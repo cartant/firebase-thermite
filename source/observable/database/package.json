@@ -1,1 +1,4 @@
-{ "main": "../../bundles/firebase-thermite.umd.js" }
+{
+  "main": "../../bundles/firebase-thermite.umd.js",
+  "module": "./index.js"
+}
