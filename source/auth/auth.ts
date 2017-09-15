@@ -44,6 +44,11 @@ export class ThermiteAuth implements firebase.auth.Auth {
         return this.observeOn(IdTokenObservable.create(this.auth_));
     }
 
+    get languageCode(): string | null {
+
+        return this.auth_.languageCode;
+    }
+
     applyActionCode(code: string): FirebasePromise<any> {
 
         return this.auth_.applyActionCode(code);
@@ -148,6 +153,11 @@ export class ThermiteAuth implements firebase.auth.Auth {
     signOut(): FirebasePromise<any> {
 
         return this.auth_.signOut();
+    }
+
+    useDeviceLanguage(): any {
+
+        return this.auth_.useDeviceLanguage();
     }
 
     verifyPasswordResetCode(code: string): FirebasePromise<any> {
