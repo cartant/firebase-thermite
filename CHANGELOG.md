@@ -1,3 +1,10 @@
+<a name="2.0.4"></a>
+## [2.0.4](https://github.com/cartant/firebase-thermite/compare/v2.0.3...v2.0.4) (2017-10-04)
+
+### Build
+
+* Restrict `firebase` dependency semver due to breaking changes in the typings. ([e39670a](https://github.com/cartant/firebase-thermite/commit/e39670a))
+
 <a name="2.0.3"></a>
 ## [2.0.3](https://github.com/cartant/firebase-thermite/compare/v2.0.2...v2.0.3) (2017-09-15)
 
