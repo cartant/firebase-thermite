@@ -3,7 +3,7 @@
 
 ### Build
 
-* Update to latest Firebase. ([88b1bb3](https://github.com/cartant/firebase-thermite/commit/88b1bb3))
+* Update to latest Firebase. ([4bf02f4](https://github.com/cartant/firebase-thermite/commit/4bf02f4))
 
 <a name="2.0.4"></a>
 ## [2.0.4](https://github.com/cartant/firebase-thermite/compare/v2.0.3...v2.0.4) (2017-10-04)
