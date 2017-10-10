@@ -4,7 +4,7 @@
  * found in the LICENSE file at https://github.com/cartant/firebase-thermite
  */
 
-import { firebase, FirebasePromise } from "../firebase";
+import { firebase } from "../firebase";
 
 export class ThermiteApp implements firebase.app.App {
 
@@ -30,7 +30,7 @@ export class ThermiteApp implements firebase.app.App {
         return this.app_.database();
     }
 
-    delete(): FirebasePromise<void> {
+    delete(): Promise<void> {
 
         return this.app_.delete();
     }

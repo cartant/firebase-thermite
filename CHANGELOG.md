@@ -1,3 +1,10 @@
+<a name="2.0.5"></a>
+## [2.0.5](https://github.com/cartant/firebase-thermite/compare/v2.0.4...v2.0.5) (2017-10-11)
+
+### Build
+
+* Update to latest Firebase. ([88b1bb3](https://github.com/cartant/firebase-thermite/commit/88b1bb3))
+
 <a name="2.0.4"></a>
 ## [2.0.4](https://github.com/cartant/firebase-thermite/compare/v2.0.3...v2.0.4) (2017-10-04)
 

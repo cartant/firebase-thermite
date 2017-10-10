@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@firebase/webchannel-wrapper@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.2.1.tgz#2c4dbc15edd1de4f656d543a6f512ded7978ef72"
+
 "@types/chai@^4.0.0":
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/@types/chai/-/chai-4.0.4.tgz#fe86315d9a66827feeb16f73bc954688ec950e18"
@@ -11,8 +15,8 @@
   resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-2.2.43.tgz#03c54589c43ad048cbcbfd63999b55d0424eec27"
 
 "@types/node@^8.0.0":
-  version "8.0.33"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.33.tgz#1126e94374014e54478092830704f6ea89df04cd"
+  version "8.0.34"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.34.tgz#55f801fa2ddb2a40dd6dfc15ecfe1dde9c129fe9"
 
 abbrev@1:
   version "1.1.1"
@@ -979,8 +983,8 @@ firebase-key@^1.0.0:
   resolved "https://registry.yarnpkg.com/firebase-key/-/firebase-key-1.0.5.tgz#c169434920d97caf97dbaac2fba1d28d4b395008"
 
 firebase-nightlight@^2.0.0:
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/firebase-nightlight/-/firebase-nightlight-2.2.4.tgz#d19971522f88ad25d9b81fd50cdb6ce69020faea"
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/firebase-nightlight/-/firebase-nightlight-2.2.5.tgz#b1381f2cbddb93ce7e75b032b27d21f30be599f3"
   dependencies:
     eventemitter2 "^4.1.0"
     firebase-key "^1.0.0"
@@ -988,10 +992,11 @@ firebase-nightlight@^2.0.0:
     lodash "^4.17.4"
     tslib "^1.6.1"
 
-firebase@~4.4.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/firebase/-/firebase-4.4.0.tgz#cffa34964c38ae24157ec930dbe147816fd8e3f4"
+firebase@~4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/firebase/-/firebase-4.5.0.tgz#e0973a9803b74c4c9d73d19f874712e6e9d16ba7"
   dependencies:
+    "@firebase/webchannel-wrapper" "^0.2.1"
     dom-storage "^2.0.2"
     faye-websocket "0.9.3"
     jsonwebtoken "^7.3.0"
@@ -1834,9 +1839,15 @@ minimist@~0.0.1:
   version "0.0.10"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.10.tgz#de3f98543dbf96082be48ad1a0c7cda836301dcf"
 
-mkdirp@0.5.0, mkdirp@0.5.1, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1:
+mkdirp@0.5.0, "mkdirp@>=0.5 0", mkdirp@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.0.tgz#1d73076a6df986cd9344e15e71fcc05a4c9abf12"
+  dependencies:
+    minimist "0.0.8"
+
+mkdirp@0.5.1, mkdirp@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
 
@@ -2457,8 +2468,8 @@ rx-lite@*, rx-lite@^4.0.8:
   resolved "https://registry.yarnpkg.com/rx-lite/-/rx-lite-4.0.8.tgz#0b1e11af8bc44836f04a6407e92da42467b79444"
 
 rxjs-tslint-rules@^3.0.0:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/rxjs-tslint-rules/-/rxjs-tslint-rules-3.0.2.tgz#1a46a442961847b60484f7af258d44ff2586f23b"
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/rxjs-tslint-rules/-/rxjs-tslint-rules-3.0.3.tgz#0fb4bac86658326f5c96433bfb1fcc47ca3d457e"
   dependencies:
     resolve "^1.4.0"
 

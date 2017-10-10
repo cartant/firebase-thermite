@@ -5,5 +5,4 @@
  */
 
 import * as firebase from "firebase/app";
-type FirebasePromise<T> = firebase.Promise<T>;
-export { firebase, FirebasePromise };
+export { firebase };

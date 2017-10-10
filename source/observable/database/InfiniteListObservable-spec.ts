@@ -628,7 +628,7 @@ describe("observable/database", function (): void {
                                         "-KLDnr39------------": { number: -9 }
                                     })
                                     .then(() => notifier.next())
-                                    .then(callback)
+                                    .then(callback as any)
                                     .catch(callback);
                             });
                         }
