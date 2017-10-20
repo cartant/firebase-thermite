@@ -72,5 +72,5 @@
   },
   "typings": "./dist/index.d.ts",
   "unpkg": "./bundles/firebase-thermite.min.umd.js",
-  "version": "2.0.5"
+  "version": "2.0.6"
 }
