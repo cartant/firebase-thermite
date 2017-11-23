@@ -35,6 +35,11 @@ export class ThermiteApp implements firebase.app.App {
         return this.app_.delete();
     }
 
+    firestore(): any {
+
+        throw new Error("Not implemented.");
+    }
+
     messaging(): firebase.messaging.Messaging {
 
         return this.app_.messaging();

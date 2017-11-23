@@ -23,10 +23,11 @@ export class ValueObservable<T> extends Observable<T> {
 
             const listener = query.on(
                 "value",
-                (snapshot: Snapshot) => observer.next(valueSelector(snapshot)),
+                (snapshot: Snapshot | null) => observer.next(valueSelector(snapshot!)),
                 (error: Error) => observer.error(error)
             );
-            return () => query.off("value", listener);
+            // https://github.com/firebase/firebase-js-sdk/issues/291
+            return () => query.off("value", listener as any);
         });
     }
 

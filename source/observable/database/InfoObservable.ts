@@ -46,11 +46,12 @@ export class InfoObservable<T> extends Observable<T> {
             const ref = database.ref(".info");
             const listener = ref.on(
                 "value",
-                (snapshot: Snapshot) => observer.next(new InfoValue(snapshot)),
+                (snapshot: Snapshot | null) => observer.next(new InfoValue(snapshot!)),
                 (error: Error) => observer.error(error)
             );
 
-            return () => ref.off("value", listener);
+            // https://github.com/firebase/firebase-js-sdk/issues/291
+            return () => ref.off("value", listener as any);
         });
     }
 

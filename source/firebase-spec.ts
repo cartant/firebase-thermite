@@ -30,7 +30,7 @@ const api: any = mock ? new Mock({
     }]
 }) : firebase;
 
-const app = api.initializeApp({
+const app: firebase.app.App = api.initializeApp({
     apiKey: firebaseApiKey,
     authDomain: firebaseAuthDomain,
     databaseURL: firebaseDatabaseUrl,

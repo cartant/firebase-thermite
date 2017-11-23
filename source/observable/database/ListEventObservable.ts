@@ -84,7 +84,12 @@ export class ListEventObservable<T> extends Observable<T> {
 
             if (added || loaded) {
 
-                const addedListener = (snapshot: Snapshot, prevKey?: string) => {
+                const addedListener = (snapshot: Snapshot | null, prevKey?: string) => {
+
+                    if (snapshot === null) {
+                        observer.error(nullSnapshotError());
+                        return;
+                    }
 
                     if (hasLoaded) {
                         if (added) {
@@ -122,12 +127,18 @@ export class ListEventObservable<T> extends Observable<T> {
                     }
                 };
                 query.on("child_added", addedListener, errorListener);
-                unlisteners["child_added"] = () => query.off("child_added", addedListener);
+                // https://github.com/firebase/firebase-js-sdk/issues/291
+                unlisteners["child_added"] = () => query.off("child_added", addedListener as any);
             }
 
             if (changed || loaded) {
 
-                const changedListener = (snapshot: Snapshot, prevKey?: string) => {
+                const changedListener = (snapshot: Snapshot | null, prevKey?: string) => {
+
+                    if (snapshot === null) {
+                        observer.error(nullSnapshotError());
+                        return;
+                    }
 
                     if (hasLoaded) {
                         if (changed) {
@@ -152,12 +163,18 @@ export class ListEventObservable<T> extends Observable<T> {
                     }
                 };
                 query.on("child_changed", changedListener, errorListener);
-                unlisteners["child_changed"] = () => query.off("child_changed", changedListener);
+                // https://github.com/firebase/firebase-js-sdk/issues/291
+                unlisteners["child_changed"] = () => query.off("child_changed", changedListener as any);
             }
 
             if (removed || loaded) {
 
-                const removedListener = (snapshot: Snapshot) => {
+                const removedListener = (snapshot: Snapshot | null) => {
+
+                    if (snapshot === null) {
+                        observer.error(nullSnapshotError());
+                        return;
+                    }
 
                     if (hasLoaded) {
                         if (removed) {
@@ -287,4 +304,9 @@ export class ListEventObservable<T> extends Observable<T> {
         observable.source = this;
         return observable;
     }
+}
+
+function nullSnapshotError(): Error {
+
+    return new Error("Received null snapshot.");
 }

@@ -93,7 +93,7 @@ describe("database", () => {
             beforeEach(() => {
 
                 const mock = new Mock();
-                const mockApp = mock.initializeApp({});
+                const mockApp: firebase.app.App = mock.initializeApp({});
                 mockRef = mockApp.database().ref();
             });
 
