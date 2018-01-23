@@ -34,7 +34,7 @@
     "tslint": "^5.1.0",
     "typescript": "~2.6.1",
     "uglify-js": "^3.0.10",
-    "yargs": "^10.0.3"
+    "yargs": "^11.0.0"
   },
   "homepage": "https://github.com/cartant/firebase-thermite",
   "jsnext:main": "./dist/index.js",
