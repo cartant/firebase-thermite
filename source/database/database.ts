@@ -21,7 +21,7 @@ import {
 
 import { QueryOptions, toQuery } from "./ref";
 import { selectKey, selectKeyedValue, selectValue } from "./selectors";
-import { CompositeValue, Query, Reference, Snapshot, Value } from "./types";
+import { Query, Reference, Snapshot, Value } from "./types";
 
 import "rxjs/add/operator/observeOn";
 
@@ -142,7 +142,7 @@ export class ThermiteDatabase implements firebase.database.Database {
 
     map(
         query: string | Query
-    ): MapObservable<CompositeValue>;
+    ): MapObservable<{ [key: string]: Value }>;
 
     map<T>(
         query: string | Query,
