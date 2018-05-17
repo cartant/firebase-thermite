@@ -12,7 +12,7 @@
     "chai": "^4.0.0",
     "core-js": "^2.4.1",
     "cpy-cli": "^1.0.1",
-    "env-cmd": "^7.0.0",
+    "env-cmd": "^8.0.2",
     "eslint": "^4.0.0",
     "firebase": "^4.0.0",
     "firebase-nightlight": "^3.0.0",
