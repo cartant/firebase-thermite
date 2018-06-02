@@ -7,7 +7,7 @@
   "description": "Firebase RxJS observables",
   "devDependencies": {
     "@types/chai": "^4.0.0",
-    "@types/mocha": "^2.2.41",
+    "@types/mocha": "^5.2.1",
     "@types/node": "^8.0.0",
     "chai": "^4.0.0",
     "core-js": "^2.4.1",
