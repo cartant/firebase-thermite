@@ -24,7 +24,7 @@
     "karma-spec-reporter": "^0.0.32",
     "mkdirp": "^0.5.1",
     "mocha": "^4.0.0",
-    "puppeteer": "^0.13.0",
+    "puppeteer": "^1.9.0",
     "rimraf": "^2.6.1",
     "rollup": "^0.52.0",
     "rollup-plugin-node-resolve": "^3.0.0",
